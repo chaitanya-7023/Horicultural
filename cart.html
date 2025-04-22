@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Crop Cart</title>
+  <style>
+    body {
+      font-family: Poppins, sans-serif;
+      padding: 20px;
+    }
+    button {
+      margin-top: 10px;
+      padding: 8px 12px;
+      background-color: #28a745;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    #cart-review {
+      margin-top: 30px;
+      border-top: 2px solid #ddd;
+      padding-top: 20px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>🧺 Horticultural Crop Cart</h1>
+
+  <div>
+    <h3>🫛 Tomato</h3>
+    <p>Price: ₹20</p>
+    <button onclick="addToCart('Tomato', 20)">➕ Add to Cart</button>
+  </div>
+
+  <div>
+    <h3>🥔 Potato</h3>
+    <p>Price: ₹15</p>
+    <button onclick="addToCart('Potato', 15)">➕ Add to Cart</button>
+  </div>
+
+  <!-- Cart Section -->
+  <div id="cart-review">
+    <h2>🛒 Your Cart</h2>
+    <ul id="cart-list"></ul>
+
+    <form id="checkout-form" action="checkout.php" method="POST">
+      <input type="hidden" name="cartData" id="cartData" />
+      <button type="submit">Proceed to Checkout</button>
+    </form>
+  </div>
+
+  <script src="cart.js"></script>
+</body>
+</html>

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Price List</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        header {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 10px 0;
+        }
+
+        .price-list ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .price-list li {
+            margin: 8px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #fff;
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .price-list button {
+            background-color: #5a0b0b;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            margin: 0 5px;
+            cursor: pointer;
+            border-radius: 3px;
+        }
+
+        .price-list button:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Price List</h1>
+</header>
+
+<div class="price-list">
+    <h3>Your Price List</h3>
+    <ul id="priceList">
+        <!-- Prices will be listed here -->
+    </ul>
+</div>
+
+<script>
+    function addPriceToList(price) {
+        const priceList = document.getElementById('priceList');
+        const listItem = document.createElement('li');
+
+        let quantity = 1;
+        listItem.innerHTML = `
+            <button onclick="decrement(this, ${price})">-</button>
+            <span>1 x $${price.toFixed(2)}</span>
+            <button onclick="increment(this, ${price})">+</button>
+        `;
+
+        priceList.appendChild(listItem);
+    }
+
+    function increment(button, price) {
+        const span = button.parentNode.querySelector('span');
+        let quantity = parseInt(span.textContent.split(' x ')[0]);
+        quantity++;
+        span.textContent = `${quantity} x $${price.toFixed(2)}`;
+    }
+
+    function decrement(button, price) {
+        const span = button.parentNode.querySelector('span');
+        let quantity = parseInt(span.textContent.split(' x ')[0]);
+        if (quantity > 1) {
+            quantity--;
+            span.textContent = `${quantity} x $${price.toFixed(2)}`;
+        } else {
+            button.parentNode.remove();
+        }
+    }
+</script>
+
+</body>
+</html>

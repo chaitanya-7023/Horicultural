@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Uses of Horticultural Crops</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap');
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: url('background1.jpg') no-repeat center center/cover;
+      color: #fff;
+      overflow-x: hidden;
+    }
+
+    h1.mani {
+      text-align: center;
+      color: #ffffff;
+      margin-top: 30px;
+      font-size: 3rem;
+      text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.6);
+      animation: fadeInDown 1s ease-in-out;
+    }
+
+    .section-container {
+      max-width: 1000px;
+      margin: 40px auto;
+      padding: 0 20px;
+      animation: fadeInUp 1s ease-in-out;
+    }
+
+    .section {
+      position: relative;
+      background-size: cover;
+      background-position: center;
+      border-radius: 16px;
+      padding: 30px 20px;
+      margin-bottom: 40px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+      overflow: hidden;
+      transition: transform 0.4s ease, box-shadow 0.4s ease;
+      cursor: pointer;
+    }
+
+    .section:hover {
+      transform: scale(1.03);
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+    }
+
+    .overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(10, 10, 10, 0.5);
+      backdrop-filter: blur(2px);
+      border-radius: 16px;
+      z-index: 0;
+    }
+
+    .content {
+      position: relative;
+      z-index: 1;
+    }
+
+    .content h2 {
+      font-size: 2rem;
+      margin-bottom: 10px;
+      color: #fffaee;
+    }
+
+    .content p {
+      font-size: 1.1rem;
+      margin-bottom: 15px;
+      color: #f1f1f1;
+    }
+
+    .content ul {
+      list-style: none;
+      padding-left: 0;
+      color: #f7f7f7;
+      font-size: 1rem;
+    }
+
+    .content ul li::before {
+      content: '🍃 ';
+    }
+
+    /* Animations */
+    @keyframes fadeInDown {
+      0% {
+        opacity: 0;
+        transform: translateY(-30px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes fadeInUp {
+      0% {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @media (max-width: 768px) {
+      h1.mani {
+        font-size: 2rem;
+      }
+
+      .content h2 {
+        font-size: 1.5rem;
+      }
+
+      .content p,
+      .content ul {
+        font-size: 0.95rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <h1 class="mani">Uses of Horticultural Crops</h1>
+  <div class="section-container">
+
+    <div class="section" style="background-image: url('apple.jpg');">
+      <div class="overlay"></div>
+      <div class="content">
+        <h2>Fruits</h2>
+        <p>Fruits are rich in vitamins, minerals, and antioxidants.</p>
+        <ul>
+          <li>Apples: Boost immunity and improve digestion.</li><br>
+          <li>Bananas: Provide instant energy and aid in muscle recovery.</li><br>
+          <li>Oranges: High in Vitamin C and support skin health.</li><br>
+          <li>Grapes: Contain resveratrol, good for heart health.</li><br>
+          <li>Papayas: Improve digestion and skin health.</li><br>
+          <li>Mangoes: Boost eyesight and immunity.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="section" style="background-image: url('tomato.jpg');">
+      <div class="overlay"></div>
+      <div class="content">
+        <h2>Vegetables</h2>
+        <p>Vegetables are a vital source of nutrients and fiber.</p>
+        <ul>
+          <li>Carrots: Improve vision and skin health.</li><br>
+          <li>Spinach: Rich in iron and supports bone health.</li><br>
+          <li>Tomatoes: Contain lycopene, good for the heart.</li><br>
+          <li>Broccoli: Packed with antioxidants and fiber.</li><br>
+          <li>Potatoes: Great source of carbohydrates and potassium.</li><br>
+          <li>Cauliflower: Supports digestion and detoxification.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="section" style="background-image: url('Flowers.png');">
+      <div class="overlay"></div>
+      <div class="content">
+        <h2>Flowers</h2>
+        <p>Flowers are used for decoration, perfumes, and medicinal purposes.</p>
+        <ul>
+          <li>Roses: Used in perfumes and skincare products.</li><br>
+          <li>Marigolds: Used in religious ceremonies and pest control.</li><br>
+          <li>Lavender: Known for its calming properties.</li><br>
+          <li>Chamomile: Used in teas for relaxation.</li><br>
+          <li>Hibiscus: Used in hair care and tea infusions.</li><br>
+          <li>Jasmine: Aromatherapy and skincare benefits.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="section" style="background-image: url('mintandherbal.jpeg');">
+      <div class="overlay"></div>
+      <div class="content">
+        <h2>Herbs</h2>
+        <p>Herbs are used for flavoring food, medicine, and aromatherapy.</p>
+        <ul>
+          <li>Basil: Antibacterial, boosts immunity.</li><br>
+          <li>Mint: Freshens breath and aids digestion.</li><br>
+          <li>Thyme: Fights bacteria, used in cooking.</li><br>
+          <li>Coriander: Improves cholesterol levels.</li><br>
+          <li>Oregano: Antioxidant-rich and antimicrobial.</li><br>
+          <li>Lemongrass: Reduces anxiety and bloating.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="section" style="background-image: url('herbs.jpg');">
+      <div class="overlay"></div>
+      <div class="content">
+        <h2>Spices</h2>
+        <p>Spices enhance taste and offer medicinal benefits.</p>
+        <ul>
+          <li>Turmeric: Anti-inflammatory and healing.</li><br>
+          <li>Cinnamon: Balances blood sugar levels.</li><br>
+          <li>Black Pepper: Improves digestion.</li><br>
+          <li>Cardamom: Refreshes breath and aids digestion.</li><br>
+          <li>Clove: Relieves toothaches and improves immunity.</li><br>
+          <li>Cumin: Good for digestion and detox.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="section" style="background-image: url('almond.jpeg');">
+      <div class="overlay"></div>
+      <div class="content">
+        <h2>Nuts</h2>
+        <p>Nuts are nutrient-dense and support brain and heart health.</p>
+        <ul>
+          <li>Almonds: Improve brain function and skin health.</li><br>
+          <li>Cashews: Support bone health and energy levels.</li><br>
+          <li>Walnuts: Rich in omega-3s for heart health.</li><br>
+          <li>Pistachios: Aid weight management and eye health.</li><br>
+          <li>Hazelnuts: Reduce inflammation and support the heart.</li><br>
+          <li>Brazil Nuts: Excellent source of selenium for thyroid function.</li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Horticultural Crops</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+
+        body {
+            background: url('background.png') no-repeat center center fixed;
+            background-size: cover;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: white;
+            animation: fadeInBackground 2s ease-out;
+        }
+
+        @keyframes fadeInBackground {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+
+        .navbar {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            display: flex;
+            gap: 15px;
+            z-index: 1;
+            animation: fadeIn 1.5s ease-out;
+        }
+
+        .nav-btn {
+            background: #0cabba;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 30px;
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: bold;
+            text-transform: uppercase;
+            transition: 0.3s ease-in-out;
+            display: inline-block;
+            transform: scale(1);
+        }
+
+        .nav-btn:hover {
+            background: #d518ac;
+            transform: scale(1.1);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.4);
+        }
+
+        /* Top Information Section */
+        .top-info {
+            width: 80%;
+            max-width: 600px;
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 30px;
+            margin-bottom: 20px;
+            border-radius: 20px;
+            animation: fadeInTop 2s ease-out;
+            transition: transform 0.4s ease, color 0.3s ease;
+        }
+
+        @keyframes fadeInTop {
+            0% { opacity: 0; transform: translateY(-30px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        .top-info h2 {
+            font-size: 28px;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
+        }
+
+        .top-info p {
+            font-size: 18px;
+            line-height: 1.5;
+        }
+
+        .top-info:hover {
+            transform: translateY(-5px);
+            color: #ffdf00; /* Change text color on hover */
+        }
+
+        /* Main Content Container */
+        .container {
+            background: rgba(0, 0, 0, 0.6);
+            padding: 40px;
+            border-radius: 20px;
+            width: 80%;
+            max-width: 600px;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+            transform: translateY(-50px);
+            animation: slideUp 1s ease-out forwards;
+        }
+
+        @keyframes slideUp {
+            0% {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        h1 {
+            font-size: 50px;
+            margin-bottom: 30px;
+            text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.7);
+            animation: fadeInText 2s ease-out;
+        }
+
+        @keyframes fadeInText {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+
+        .btn-container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            animation: fadeInButtons 1.5s ease-in-out;
+        }
+
+        @keyframes fadeInButtons {
+            0% {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .btn {
+            background: #087077;
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 50px;
+            text-decoration: none;
+            font-size: 20px;
+            font-weight: bold;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            transition: transform 0.4s ease, background 0.4s ease, box-shadow 0.4s ease;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+            display: block;
+            max-width: 320px;
+            margin: 0 auto;
+        }
+
+        .btn:hover {
+            background: #d518ac;
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        .btn:active {
+            transform: translateY(2px) scale(1);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Bottom Information Section */
+        .bottom-info {
+            width: 80%;
+            max-width: 600px;
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 30px;
+            margin-top: 20px;
+            border-radius: 20px;
+            animation: fadeInBottom 2s ease-out;
+            transition: transform 0.4s ease, color 0.3s ease;
+        }
+
+        @keyframes fadeInBottom {
+            0% { opacity: 0; transform: translateY(30px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        .bottom-info h3 {
+            font-size: 26px;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
+        }
+
+        .bottom-info p {
+            font-size: 18px;
+            line-height: 1.5;
+        }
+
+        .bottom-info:hover {
+            transform: translateY(-5px);
+            color: #ffdf00; /* Change text color on hover */
+        }
+
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <div class="navbar">
+        <a href="contact.html" class="nav-btn">Contact</a>
+    </div>
+
+    <!-- Top Information Section -->
+    <div class="top-info">
+        <h2>Welcome to Horticultural Crops</h2>
+        <p>Explore a wide variety of crops, from fruits to vegetables, spices, and more. Learn how to store and preserve your crops, and discover their uses and market prices. Whether you're a farmer, enthusiast, or just curious, you'll find everything you need to know!</p>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container">
+        <h1>Horticultural Crops</h1>
+        <div class="btn-container">
+            <a href="Crops.html" class="btn">Crops</a>
+            <a href="storage.html" class="btn">Storage</a>
+            <a href="uses.html" class="btn">Uses</a>
+            <a href="prices.html" class="btn">Prices</a>
+        </div>
+    </div>
+
+    <!-- Bottom Information Section -->
+    <div class="bottom-info">
+        <h3>Stay Updated</h3>
+        <p>Get the latest updates, crop information, and seasonal tips. Keep your crops healthy and profitable with expert advice!</p>
+    </div>
+</body>
+</html>

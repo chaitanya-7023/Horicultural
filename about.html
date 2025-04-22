@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>About - Horticultural Crops & Plants</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #f7fafc;
+      color: #333;
+      margin: 0;
+      padding: 20px;
+      overflow-x: hidden;
+    }
+
+    /* Back Button */
+    .back-btn {
+      background: linear-gradient(135deg, #38b2ac, #2b6cb0);
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 25px;
+      cursor: pointer;
+      font-size: 1em;
+      font-weight: 600;
+      transition: background 0.3s ease, transform 0.2s ease;
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      z-index: 999;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    }
+
+    .back-btn:hover {
+      background: linear-gradient(135deg, #2b6cb0, #38b2ac);
+      transform: scale(1.05);
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 30px;
+      animation: fadeInDown 1s ease-in-out;
+    }
+
+    h1 {
+      font-size: 2.8em;
+      color: #2c7a7b;
+      margin-bottom: 10px;
+    }
+
+    h2 {
+      font-size: 1.8em;
+      color: #2b6cb0;
+      margin-top: 50px;
+      position: relative;
+    }
+
+    h3 {
+      font-size: 1.5em;
+      color: #4a5568;
+      margin-top: 20px;
+    }
+
+    p {
+      font-size: 1em;
+      line-height: 1.8;
+      margin-top: 10px;
+    }
+
+    ul {
+      padding-left: 20px;
+      margin-top: 10px;
+    }
+
+    li {
+      margin-bottom: 8px;
+    }
+
+    .category {
+      background-color: #e6fffa;
+      border-left: 5px solid #38b2ac;
+      padding: 20px;
+      margin: 25px 0;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      animation: fadeInUp 1s ease;
+    }
+
+    .category:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.12);
+      background-color: #d3f9f4;
+    }
+
+    .footer {
+      text-align: center;
+      margin-top: 60px;
+      font-size: 0.9em;
+      color: #718096;
+      padding-top: 20px;
+      border-top: 1px solid #e2e8f0;
+    }
+
+    section {
+      animation: fadeIn 1s ease-in-out;
+    }
+
+    /* Animations */
+    @keyframes fadeIn {
+      0% {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes fadeInDown {
+      0% {
+        opacity: 0;
+        transform: translateY(-30px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes fadeInUp {
+      0% {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      h1 {
+        font-size: 2em;
+      }
+
+      h2 {
+        font-size: 1.5em;
+      }
+
+      .category {
+        padding: 15px;
+      }
+
+      .back-btn {
+        padding: 8px 16px;
+        font-size: 0.9em;
+      }
+    }
+  </style>
+</head>
+<body>
+    <button class="back-btn" onclick="window.location.href='pratice.html'">← Back</button>
+  <header>
+    <h1>About Horticultural Crops & Plants</h1>
+    <p>Discover the diverse world of cultivated crops and the science behind them.</p>
+  </header>
+
+  <section>
+    <h2>🌱 What is Horticulture?</h2>
+    <p>
+      Horticulture is a vital branch of agriculture that focuses on the art and science of growing plants, fruits, vegetables, flowers, nuts, herbs, and spices. It includes the sustainable management of plant health, nutrition, and productivity while meeting consumer needs for fresh, nutritious, and aesthetic produce.
+    </p>
+  </section>
+
+  <section>
+    <h2>🌾 Categories of Horticultural Crops</h2>
+
+    <div class="category">
+      <h3>🍎 1. Fruits</h3>
+      <p><strong>Examples:</strong> Mango, Apple, Banana, Pomegranate, Papaya, Grapes, Guava, Citrus, Pineapple, Sapota</p>
+      <p><strong>Expert Note:</strong> Fruits require long-term orchard planning, proper pollination, and irrigation techniques to ensure a healthy yield.</p>
+    </div>
+
+    <div class="category">
+      <h3>🥦 2. Vegetables</h3>
+      <p><strong>Examples:</strong> Tomato, Potato, Onion, Cabbage, Cauliflower, Brinjal, Carrot, Beans, Peas, Spinach</p>
+      <p><strong>Expert Note:</strong> Vegetables are quick-growing and climate-sensitive. Crop rotation and soil health are essential.</p>
+    </div>
+
+    <div class="category">
+      <h3>🌼 3. Flowers (Floriculture)</h3>
+      <p><strong>Examples:</strong> Rose, Marigold, Jasmine, Chrysanthemum, Gerbera, Gladiolus, Tuberose, Lily</p>
+      <p><strong>Expert Note:</strong> Flowers require controlled environments and regular pruning. Ideal for polyhouse cultivation.</p>
+    </div>
+
+    <div class="category">
+      <h3>🌶️ 4. Spices</h3>
+      <p><strong>Examples:</strong> Turmeric, Black Pepper, Cardamom, Clove, Ginger, Cumin, Coriander, Fennel</p>
+      <p><strong>Expert Note:</strong> Many spices are perennials. Shade and humidity management are crucial for quality spice production.</p>
+    </div>
+
+    <div class="category">
+      <h3>🌿 5. Herbs & Medicinal Plants</h3>
+      <p><strong>Examples:</strong> Tulsi, Aloe Vera, Ashwagandha, Mint, Lemongrass, Brahmi, Giloy</p>
+      <p><strong>Expert Note:</strong> These crops are grown for therapeutic purposes and thrive under organic care and minimal chemicals.</p>
+    </div>
+
+    <div class="category">
+      <h3>🌰 6. Nuts</h3>
+      <p><strong>Examples:</strong> Cashew, Walnut, Almond, Groundnut, Chestnut, Pistachio</p>
+      <p><strong>Expert Note:</strong> High-value crops with long gestation periods. Require long-term care and specific soil conditions.</p>
+    </div>
+
+    <div class="category">
+      <h3>🌳 7. Plantation Crops</h3>
+      <p><strong>Examples:</strong> Coconut, Coffee, Tea, Areca Nut, Cocoa</p>
+      <p><strong>Expert Note:</strong> Plantation crops are often grown in shaded, high-altitude areas and require careful post-harvest processing.</p>
+    </div>
+  </section>
+
+  <section>
+    <h2>🧠 Expert Insights on Crop Management</h2>
+    <ul>
+      <li><strong>Soil Health:</strong> Regular testing and organic enrichment improve fertility and plant vigor.</li>
+      <li><strong>Integrated Pest Management (IPM):</strong> A combination of biological and minimal chemical solutions protects crops.</li>
+      <li><strong>Water Efficiency:</strong> Techniques like drip irrigation and mulching conserve water and boost yields.</li>
+      <li><strong>Marketing:</strong> Direct selling, packaging, and branding increase farmer income and consumer reach.</li>
+      <li><strong>Technology Integration:</strong> AI tools, IoT sensors, and mobile apps help monitor and manage crops effectively.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>🌍 Conclusion</h2>
+    <p>
+      Horticulture plays a key role in nutrition, sustainability, and economic development. With an expanding global demand for health-conscious products, horticultural crops present opportunities for farmers, entrepreneurs, and researchers alike.
+    </p>
+    <p>
+      Explore our platform for crop-specific guidance, expert advice, and tech-driven solutions tailored to the needs of the modern agricultural community.
+    </p>
+  </section>
+
+  <div class="footer">
+    &copy; Created by Manikanta Lukka.
+  </div>
+
+</body>
+</html>

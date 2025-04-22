@@ -1,0 +1,785 @@
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Price List with Chart</title>
+        <style>
+           /* Base Styles */
+body {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f0f0f0;
+    color: #333;
+    overflow-x: hidden;
+}
+
+/* Header */
+header {
+    background-color: #4CAF50;
+    color: white;
+    text-align: center;
+    padding: 15px 0;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+header h1 {
+    font-size: 2.5rem;
+    letter-spacing: 1.5px;
+    transition: transform 0.3s ease;
+}
+
+header h1:hover {
+    transform: scale(1.05);
+}
+
+/* Category Section */
+.category-container {
+    margin-top: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    background: linear-gradient(135deg, #7cc3d0, #4CAF50);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    animation: fadeIn 1.5s ease;
+}
+
+/* Category Title */
+.category h2 {
+    text-align: center;
+    margin-bottom: 15px;
+    font-size: 1.8rem;
+    color: #fff;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+}
+
+/* Item Container */
+.container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 30px;
+    padding: 20px;
+}
+
+/* Item Cards */
+.item {
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    width: 250px;
+    margin: 20px;
+    border-radius: 8px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    padding: 15px;
+    position: relative;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+    cursor: pointer;
+}
+
+.item:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+    background-color: #e6f9ec;
+}
+
+.item img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 8px;
+    transition: transform 0.4s ease;
+}
+
+.item img:hover {
+    transform: scale(1.1);
+}
+
+/* Button inside Item */
+.item button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 12px 18px;
+    margin-top: 15px;
+    cursor: pointer;
+    border-radius: 8px;
+    font-size: 16px;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.item button:hover {
+    background-color: #45a049;
+    transform: scale(1.05);
+}
+
+/* Price List Section */
+.price-list {
+    margin-top: 40px;
+    padding: 25px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    width: 80%;
+    max-width: 350px;
+    margin-left: auto;
+    margin-right: auto;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    animation: fadeIn 1.5s ease;
+}
+
+.price-list h3 {
+    text-align: center;
+    font-size: 1.5rem;
+    color: #333;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    font-weight: 600;
+}
+
+.price-list ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.price-list li {
+    margin: 10px 0;
+    font-size: 1.2rem;
+    color: #555;
+    text-align: center;
+    position: relative;
+}
+
+.price-list li::before {
+    content: "🌱";
+    position: absolute;
+    left: -30px;
+    top: 0;
+    font-size: 1.5rem;
+}
+
+/* Total Amount Box */
+#totalAmountBox {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    padding: 15px;
+    border-radius: 12px;
+    background-color: #f8f9fa;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    text-align: center;
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+    width: 220px;
+    animation: bounceIn 1s ease;
+}
+
+/* Order Chart */
+#orderChart {
+    width: 450px;
+    height: 450px;
+    margin: 30px auto;
+    background: #fff;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    animation: fadeIn 1.5s ease;
+}
+
+/* Animations */
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes bounceIn {
+    0% {
+        transform: scale(0.5);
+        opacity: 0;
+    }
+    50% {
+        transform: scale(1.1);
+        opacity: 0.7;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+/* Button Styles */
+button {
+    padding: 10px 20px;
+    margin: 10px;
+    border-radius: 8px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+button:active {
+    transform: scale(0.98);
+}
+
+/* Hover Effects for List Items */
+ul li:hover {
+    background-color: #e6f9ec;
+    transform: scale(1.05);
+    transition: transform 0.3s ease, background-color 0.3s ease;
+}
+.back-btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background: linear-gradient(135deg, #4CAF50, #81C784); /* Gradient color */
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 8px;
+            transition: transform 0.3s ease, background-color 0.3s ease;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .back-btn:hover {
+            transform: translateY(-5px); /* Slight lift effect */
+            background: linear-gradient(135deg, #388E3C, #66BB6A); /* Darker gradient on hover */
+        }
+
+        .back-btn:active {
+            transform: translateY(0); /* Return to normal on click */
+        }
+
+        /* Optional: Position the back button at the top-left corner */
+        .back-btn-position {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            z-index: 10;
+        }
+        </style>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    </head>
+    <body>
+<!-- Update the link to point to the specific file you want to open -->
+    <header>
+        <h1> Order Items </h1>
+    </header>
+    <br>
+    <a href="pratice.html" class="back-btn">Back</a>
+    <!-- Flowers Category -->
+    <div class="category">
+        <h2>Flowers</h2>
+        <div class="container">
+            <div class="item">
+                <img src="rose.jpeg" alt="Rose">
+                <h3>Rose</h3>
+                <p>₹415.00</p>
+                <button onclick="addPriceToList(5, 'Flowers', 'Rose')">Add to List</button>
+            </div>
+            <div class="item">
+                <img src="lily.jpeg" alt="Lily">
+                <h3>Lily</h3>
+                <p>₹518.00</p>
+                <button onclick="addPriceToList(7, 'Flowers', 'Lily')">Add to List</button>
+            </div>
+            <div class="item">
+                <img src="tulips.jpeg" alt="Tulip">
+                <h3>Tulip</h3>
+                <p>₹373.50</p>
+                <button onclick="addPriceToList(4.5, 'Flowers', 'Tulip')">Add to List</button>
+            </div>
+            <div class="item">
+                <img src="daisy.jpeg" alt="Daisy">
+                <h3>Daisy</h3>
+                <p>₹249.00</p>
+                <button onclick="addPriceToList(3, 'Flowers', 'Daisy')">Add to List</button>
+            </div>
+            <div class="item">
+                <img src="sunflower.jpeg" alt="Sunflower">
+                <h3>Sunflower</h3>
+                <p>₹478.00</p>
+                <button onclick="addPriceToList(6, 'Flowers', 'Sunflower')">Add to List</button>
+            </div>
+            <div class="item">
+                <img src="orchid.jpeg" alt="Orchid">
+                <h3>Orchid</h3>
+                <p>₹443.00</p>
+                <button onclick="addPriceToList(15, 'Flowers', 'Orchid')">Add to List</button>
+            </div>
+            <div class="item">
+                <img src="penoy.jpeg" alt="Peony">
+                <h3>Peony</h3>
+                <p>₹560.00</p>
+                <button onclick="addPriceToList(12, 'Flowers', 'Peony')">Add to List</button>
+            </div>
+            <div class="item">
+                <img src="jasmin.jpeg" alt="Jasmine">
+                <h3>Jasmine</h3>
+                <p>₹389.00</p>
+                <button onclick="addPriceToList(8, 'Flowers', 'Jasmine')">Add to List</button>
+            </div>
+            <div class="item">
+                <img src="gerbera.jpeg" alt="Gerbera">
+                <h3>Gerbera</h3>
+                <p>₹675.00</p>
+                <button onclick="addPriceToList(10, 'Flowers', 'Gerbera')">Add to List</button>
+            </div>
+            <div class="item">
+                <img src="chrysanthemum.jpeg" alt="Chrysanthemum">
+                <h3>Chrysanthemum</h3>
+                <p>₹567.00</p>
+                <button onclick="addPriceToList(9, 'Flowers', 'Chrysanthemum')">Add to List</button>
+            </div>
+            <div class="item">
+                <img src="marigold.jpeg" alt="Marigold">
+                <h3>Marigold</h3>
+                <p>₹345.50</p>
+                <button onclick="addPriceToList(3.5, 'Flowers', 'Marigold')">Add to List</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Vegetables Category -->
+    <div class="category">
+        <h2>Vegetables</h2>
+        <div class="container">
+            <div class="item"> 
+                <img src="tomato.jpg" alt="Tomato">
+                <h3>Tomato</h3>
+                <p>₹20.00</p>
+                <button onclick="addPriceToList(2, 'Vegetables', 'Tomato')">Add to List</button>
+            </div>
+            <div class="item">
+                <img src="carrot.png" alt="Carrot">
+                <h3>Carrot</h3>
+                <p>₹80.50</p>
+                <button onclick="addPriceToList(1.5, 'Vegetables', 'Carrot')">Add to List</button>
+            </div>
+            <div class="item">
+                <img src="cabbage.jpeg" alt="Cabbage">
+                <h3>Cabbage</h3>
+                <p>₹40.00</p>
+                <button onclick="addPriceToList(3, 'Vegetables', 'Cabbage')">Add to List</button>
+            </div>
+            <div class="item">
+                <img src="spinach.webp" alt="Spinach">
+                <h3>Spinach</h3>
+                <p>₹80.50</p>
+                <button onclick="addPriceToList(2.5, 'Vegetables', 'Spinach')">Add to List</button>
+            </div>
+            <div class="item">
+                <img src="broccoi.jpeg" alt="Broccoli">
+                <h3>Broccoli</h3>
+                <p>₹80.80</p>
+                <button onclick="addPriceToList(1.8, 'Vegetables', 'Broccoli')">Add to List</button>
+            </div>
+            <div class="item">
+                <img src="califlower.jpeg" alt="Cauliflower">
+                <h3>Cauliflower</h3>
+                <p>₹78.50</p>
+                <button onclick="addPriceToList(3.5, 'Vegetables', 'Cauliflower')">Add to List</button>
+            </div>
+            <div class="item">
+                <img src="potato.jpg" alt="Potato">
+                <h3>Potato</h3>
+                <p>₹50.00</p>
+                <button onclick="addPriceToList(2, 'Vegetables', 'Potato')">Add to List</button>
+            </div>
+            <div class="item">
+                <img src="onion.webp" alt="Onion">
+                <h3>Onion</h3>
+                <p>₹49.00</p>
+                <button onclick="addPriceToList(4, 'Vegetables', 'Onion')">Add to List</button>
+            </div>
+            <div class="item">
+                <img src="beetroot.jpeg" alt="Beetroot">
+                <h3>Beetroot</h3>
+                <p>₹89.00</p>
+                <button onclick="addPriceToList(3, 'Vegetables', 'Beetroot')">Add to List</button>
+            </div>
+            <div class="item">
+                <img src="bay-leaf.jpeg" alt="Lettuce">
+                <h3>Lettuce</h3>
+                <p>₹89.20</p>
+                <button onclick="addPriceToList(1.2, 'Vegetables', 'Lettuce')">Add to List</button>
+            </div>
+            <div class="item">
+                <img src="egg plant.jpeg" alt="Brinjal">
+                <h3>Brinjal</h3>
+                <p>₹50.80</p>
+                <button onclick="addPriceToList(2.8, 'Vegetables', 'Brinjal')">Add to List</button>
+            </div>
+            <div class="item">
+                <img src="cucumber.jpeg" alt="Cucumber">
+                <h3>Cucumber</h3>
+                <p>₹60.70</p>
+                <button onclick="addPriceToList(1.7, 'Vegetables', 'Cucumber')">Add to List</button>
+            </div>
+            <div class="item">
+                <img src="green peas.webp" alt="Green Peas">
+                <h3>Green Peas</h3>
+                <p>₹70.20</p>
+                <button onclick="addPriceToList(2.2, 'Vegetables', 'Green Peas')">Add to List</button>
+            </div>
+            <div class="item">
+                <img src="radish.jpeg" alt="Radish">
+                <h3>Radish</h3>
+                <p>₹85.90</p>
+                <button onclick="addPriceToList(1.9, 'Vegetables', 'Radish')">Add to List</button>
+            </div>
+            <div class="item">
+                <img src="bell pepper.jpeg" alt="Bell Pepper">
+                <h3>Bell Pepper</h3>
+                <p>₹120.00</p>
+                <button onclick="addPriceToList(3, 'Vegetables', 'Bell Pepper')">Add to List</button>
+            </div>
+            <div class="item">
+                <img src="zucchini.jpeg" alt="Zucchini">
+                <h3>Zucchini</h3>
+                <p>₹100.60</p>
+                <button onclick="addPriceToList(2.6, 'Vegetables', 'Zucchini')">Add to List</button>
+            </div>
+            <div class="item">
+                <img src="sweet corn.jpeg" alt="Sweet Corn">
+                <h3>Sweet Corn</h3>
+                <p>$30.90</p>
+                <button onclick="addPriceToList(2.9, 'Vegetables', 'Sweet Corn')">Add to List</button>
+            </div>
+            <div class="item">
+                <img src="pumpkin.jpeg" alt="Pumpkin">
+                <h3>Pumpkin</h3>
+                <p>₹60.20</p>
+                <button onclick="addPriceToList(3.2, 'Vegetables', 'Pumpkin')">Add to List</button>
+            </div>
+            <div class="item">
+                <img src="okra.jpeg" alt="Okra">
+                <h3>Okra</h3>
+                <p>₹56.40</p>
+                <button onclick="addPriceToList(2.4, 'Vegetables', 'Okra')">Add to List</button>
+            </div>
+            <div class="item">
+                <img src="bitter gourd.jpeg" alt="Bitter Gourd">
+                <h3>Bitter Gourd</h3>
+                <p>₹60.30</p>
+                <button onclick="addPriceToList(2.3, 'Vegetables', 'Bitter Gourd')">Add to List</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Fruits Category -->
+    <div class="category">
+        <h2>Fruits</h2>
+        <div class="container">
+            <div class="item">
+                <img src="apple.jpg" alt="Apple">
+                <h3>Apple</h3>
+                <p>₹150.00</p>
+                <button onclick="addPriceToList(2, 'Fruits', 'Apple')">Add to List</button>
+            </div>
+            <div class="item">
+                <img src="banana.jpg" alt="Banana">
+                <h3>Banana</h3>
+                <p>₹60.50</p>
+                <button onclick="addPriceToList(1.5, 'Fruits', 'Banana')">Add to List</button>
+            </div>
+            <div class="item">
+                <img src="graps.jpeg" alt="Grapes">
+                <h3>Grapes</h3>
+                <p>₹80.00</p>
+                <button onclick="addPriceToList(3, 'Fruits', 'Grapes')">Add to List</button>
+            </div>
+            <div class="item">
+                <img src="orange.webp" alt="Orange">
+                <h3>Orange</h3>
+                <p>₹55.80</p>
+                <button onclick="addPriceToList(1.8, 'Fruits', 'Orange')">Add to List</button>
+            </div>
+            <div class="item">
+                <img src="pear.jpeg" alt="Pear">
+                <h3>Pear</h3>
+                <p>₹89.50</p>
+                <button onclick="addPriceToList(2.5, 'Fruits', 'Pear')">Add to List</button>
+            </div>
+            <div class="item">
+                <img src="pineapple.jpeg" alt="Pineapple">
+                <h3>Red Pineapple</h3>
+                <p>₹50.00</p>
+                <button onclick="addPriceToList(4, 'Fruits', 'Red Pineapple')">Add to List</button>
+            </div>
+            <div class="item">
+                <img src="mango.png" alt="Mango">
+                <h3>Mango</h3>
+                <p>₹100.50</p>
+                <button onclick="addPriceToList(3.5, 'Fruits', 'Mango')">Add to List</button>
+            </div>
+            <div class="item">
+                <img src="strawberry.jpeg" alt="Strawberry">
+                <h3>Strawberry</h3>
+                <p>₹170.00</p>
+                <button onclick="addPriceToList(5, 'Fruits', 'Strawberry')">Add to List</button>
+            </div>
+            <div class="item">
+                <img src="peach.jpeg" alt="Peach">
+                <h3>Peach</h3>
+                <p>₹175.00</p>
+                <button onclick="addPriceToList(3, 'Fruits', 'Peach')">Add to List</button>
+            </div>
+            <div class="item">
+                <img src="kiwi.jpeg" alt="Kiwi">
+                <h3>Kiwi</h3>
+                <p>₹450.50</p>
+                <button onclick="addPriceToList(4.5, 'Fruits', 'Kiwi')">Add to List</button>
+            </div>
+            <div class="item">
+                <img src="blue berry.jpeg" alt="Blueberry">
+                <h3>Blueberry</h3>
+                <p>₹450.00</p>
+                <button onclick="addPriceToList(6, 'Fruits', 'Blueberry')">Add to List</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Spices & Flavours Category -->
+    <div class="category">
+        <h2>Spices & Flavours</h2>
+        <div class="container">
+            <div class="item">
+                <img src="pepper.jpeg" alt="Pepper">
+                <h3>Pepper</h3>
+                <p>₹20.00</p>
+                <button onclick="addPriceToList(2, 'Spices & Flavours', 'Pepper')">Add to List</button>
+            </div>
+            <div class="item">
+                <img src="cinnamon.jpeg" alt="Cinnamon">
+                <h3>Cinnamon</h3>
+                <p>₹50.00</p>
+                <button onclick="addPriceToList(3, 'Spices & Flavours', 'Cinnamon')">Add to List</button>
+            </div>
+            <div class="item">
+                <img src="cardamom.jpeg" alt="Cardamom">
+                <h3>Cardamom</h3>
+                <p>₹45.00</p>
+                <button onclick="addPriceToList(4, 'Spices & Flavours', 'Cardamom')">Add to List</button>
+            </div>
+            <div class="item">
+                <img src="turmeric.jpeg" alt="Turmeric">
+                <h3>Turmeric</h3>
+                <p>₹110.50</p>
+                <button onclick="addPriceToList(1.5, 'Spices & Flavours', 'Turmeric')">Add to List</button>
+            </div>
+            <div class="item">
+                <img src="garlic.jpeg" alt="Garlic">
+                <h3>Garlic</h3>
+                <p>₹70.00</p>
+                <button onclick="addPriceToList(2, 'Spices & Flavours', 'Garlic')">Add to List</button>
+            </div>
+            <div class="item">
+                <img src="ginger.jpeg" alt="Ginger">
+                <h3>Ginger</h3>
+                <p>₹65.50</p>
+                <button onclick="addPriceToList(3.5, 'Spices & Flavours', 'Ginger')">Add to List</button>
+            </div>
+            <div class="item">
+                <img src="chilli.jpeg" alt="Chili">
+                <h3>Chili</h3>
+                <p>₹50.80</p>
+                <button onclick="addPriceToList(1.8, 'Spices & Flavours', 'Chili')">Add to List</button>
+            </div>
+            <div class="item">
+                <img src="fennel.jpeg" alt="Saffron">
+                <h3>Fennel</h3>
+                <p>₹30.00</p>
+                <button onclick="addPriceToList(10, 'Spices & Flavours', 'Fennel')">Add to List</button>
+            </div>
+            <div class="item">
+                <img src="cloves.jpeg" alt="Cloves">
+                <h3>Cloves</h3>
+                <p>₹35.00</p>
+                <button onclick="addPriceToList(5, 'Spices & Flavours', 'Cloves')">Add to List</button>
+            </div>
+            <div class="item">
+                <img src="nutmeg.jpeg" alt="Nutmeg">
+                <h3>Nutmeg</h3>
+                <p>₹45.00</p>
+                <button onclick="addPriceToList(6, 'Spices & Flavours', 'Nutmeg')">Add to List</button>
+            </div>
+            <div class="item">
+                <img src="oregano.jpeg" alt="Oregano">
+                <h3>Oregano</h3>
+                <p>₹55.50</p>
+                <button onclick="addPriceToList(2.5, 'Spices & Flavours', 'Oregano')">Add to List</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Herbs Category -->
+    <div class="category">
+        <h2>Herbs</h2>
+        <div class="container">
+            <div class="item">
+                <img src="basil.jpeg" alt="Basil">
+                <h3>Basil</h3>
+                <p>₹30.00</p>
+                <button onclick="addPriceToList(2, 'Herbs', 'Basil')">Add to List</button>
+            </div>
+            <div class="item">
+                <img src="mint.jpeg" alt="Mint">
+                <h3>Mint</h3>
+                <p>₹15.50</p>
+                <button onclick="addPriceToList(1.5, 'Herbs', 'Mint')">Add to List</button>
+            </div>
+            <div class="item">
+                <img src="thyme.jpeg" alt="Thyme">
+                <h3>Thyme</h3>
+                <p>₹35.00</p>
+                <button onclick="addPriceToList(3, 'Herbs', 'Thyme')">Add to List</button>
+            </div>
+            <div class="item">
+                <img src="rose marry.jpeg" alt="Rosemary">
+                <h3>Rosemary</h3>
+                <p>₹55.00</p>
+                <button onclick="addPriceToList(2.5, 'Herbs', 'Rosemary')">Add to List</button>
+            </div>
+            <div class="item">
+                <img src="parsely.jpeg" alt="Parsley">
+                <h3>Parsley</h3>
+                <p>₹35.80</p>
+                <button onclick="addPriceToList(1.8, 'Herbs', 'Parsley')">Add to List</button>
+            </div>
+            <div class="item">
+                <img src="sage.jpeg" alt="Sage">
+                <h3>Sage</h3>
+                <p>₹39.50</p>
+                <button onclick="addPriceToList(3.5, 'Herbs', 'Sage')">Add to List</button>
+            </div>
+            <div class="item">
+                <img src="oregano-herb.jpeg" alt="Oregano">
+                <h3>Oregano</h3>
+                <p>₹75.00</p>
+                <button onclick="addPriceToList(2, 'Herbs', 'Oregano')">Add to List</button>
+            </div>
+            <div class="item">
+                <img src="lavender.jpeg" alt="Lavender">
+                <h3>Lavender</h3>
+                <p>₹75.00</p>
+                <button onclick="addPriceToList(4, 'Herbs', 'Lavender')">Add to List</button>
+            </div>
+            <div class="item">
+                <img src="chives.jpeg" alt="Chives">
+                <h3>Chives</h3>
+                <p>₹35.00</p>
+                <button onclick="addPriceToList(3, 'Herbs', 'Chives')">Add to List</button>
+            </div>
+            <div class="item">
+                <img src="bay-leaf.jpeg" alt="Bay Leaf">
+                <h3>Bay Leaf</h3>
+                <p>₹78.20</p>
+                <button onclick="addPriceToList(1.2, 'Herbs', 'Bay Leaf')">Add to List</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="price-list">
+        <h3>Your Price List</h3>
+        <ul id="priceList">
+            <!-- Prices will be listed here -->
+        </ul>
+    </div>
+
+    <div id="totalAmountBox">
+        <p id="totalAmount">Total: ₹0.00</p>
+        <button class="buy-now-btn" onclick="buyNow()">Buy Now</button>
+    </div>
+
+    <canvas id="orderChart"></canvas>
+
+    <script>
+        let totalAmount = 0;
+        let orderCounts = {
+            'Flowers': 0,
+            'Vegetables': 0,
+            'Fruits': 0,
+            'Spices & Flavours': 0,
+            'Herbs': 0
+        };
+        let orderChart;
+        let orderItems = []; // Array to store all ordered items
+    
+        const conversionRate = 83; // 1 USD = ₹83
+    
+        function addPriceToList(priceUSD, category, name) {
+            const priceINR = priceUSD * conversionRate;
+            const priceList = document.getElementById('priceList');
+            const listItem = document.createElement('li');
+            listItem.textContent = name + ': ₹' + priceINR.toFixed(2);
+            priceList.appendChild(listItem);
+    
+            totalAmount += priceINR;
+            const totalElement = document.getElementById('totalAmount');
+            totalElement.textContent = 'Total: ₹' + totalAmount.toFixed(2);
+    
+            // Add item to orderItems array
+            orderItems.push({
+                name: name,
+                price: priceINR,
+                category: category
+            });
+    
+            // Update order counts
+            orderCounts[category] += 1;
+            updateChart();
+        }
+    
+        function updateChart() {
+            const labels = Object.keys(orderCounts);
+            const data = Object.values(orderCounts);
+            const colors = ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0', '#9966FF'];
+    
+            if (orderChart) orderChart.destroy();
+    
+            const ctx = document.getElementById('orderChart').getContext('2d');
+            orderChart = new Chart(ctx, {
+                type: 'pie',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        data: data,
+                        backgroundColor: colors
+                    }]
+                },
+                options: {
+                    responsive: true
+                }
+            });
+        }
+    
+        function buyNow() {
+            // Save order data to localStorage before redirecting
+            localStorage.setItem('orderItems', JSON.stringify(orderItems));
+            localStorage.setItem('totalAmount', totalAmount.toFixed(2)); // INR total
+            window.location.href = "Checkout.html";
+        }
+    </script>
+    
+   
+    </body>
+    </html>

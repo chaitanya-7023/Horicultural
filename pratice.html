@@ -1,0 +1,779 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Horticultural Crops</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background-color: #f8f8f8;
+      color: #333;
+      scroll-behavior: smooth;
+    }
+
+    nav {
+      background: rgb(120, 1, 1);
+      padding: 15px 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: white;
+      flex-wrap: wrap;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+
+    .main {
+      font-size: 2rem;
+      font-weight: 600;
+      text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
+    }
+
+    nav ul {
+      list-style-type: none;
+      display: flex;
+      gap: 20px;
+      margin: 0;
+      padding: 0;
+    }
+
+    nav ul li a {
+      color: white;
+      text-decoration: none;
+      font-size: 1.1em;
+      transition: all 0.3s;
+      padding: 8px 12px;
+      border-radius: 5px;
+    }
+
+    nav ul li a:hover {
+      color: yellow;
+      background-color: rgba(255,255,255,0.1);
+    }
+
+    .intro {
+      text-align: center;
+      padding: 50px 20px 30px;
+      animation: fadeIn 2s ease-in;
+      background: linear-gradient(135deg, rgba(255,255,255,0.9) 0%, rgba(255,248,230,0.9) 100%);
+      margin: 20px;
+      border-radius: 15px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+    }
+
+    .intro h2 {
+      font-size: 2.2em;
+      color: rgb(120, 1, 1);
+      margin-bottom: 15px;
+    }
+
+    .intro p {
+      max-width: 800px;
+      margin: 20px auto;
+      font-size: 1.1em;
+      line-height: 1.6;
+      color: #555;
+    }
+
+    ul.b {
+      list-style-type: square;
+      display: flex;
+      justify-content: center;
+      gap: 60px;
+      padding: 10px;
+      margin: 30px 0;
+      font-weight: 500;
+      animation: fadeInUp 1s ease-in-out;
+    }
+
+    .container {
+      position: relative;
+      display: block;
+      width: 100%;
+      max-width: 1500px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    .image {
+      width: 100%;
+      height: auto;
+      border-radius: 15px;
+      animation: fadeIn 1.5s ease;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+      transition: transform 0.3s;
+    }
+
+    .image:hover {
+      transform: scale(1.01);
+    }
+
+    .box {
+      position: absolute;
+      width: 120px;
+      height: 120px;
+      background: linear-gradient(to bottom right, #a80000, #ff4d4d);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      border-radius: 15px;
+      transition: all 0.3s ease;
+      text-align: center;
+      padding: 10px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+      cursor: pointer;
+    }
+
+    .box button {
+      background: none;
+      border: none;
+      color: white;
+      font-size: 1.2em;
+      font-weight: 500;
+      cursor: pointer;
+    }
+
+    .box:hover {
+      transform: scale(1.2);
+      box-shadow: 0 0 20px rgba(255, 0, 0, 0.6);
+    }
+
+    .box.selected {
+      background: linear-gradient(to bottom right, #00a800, #66ff66);
+    }
+
+    .box1 { top: 10%; left: 5%; }
+    .box2 { top: 15%; right: 6%; }
+    .box3 { bottom: 20%; left: 8%; }
+    .box4 { bottom: 10%; right: 5%; }
+
+    .btn-container {
+      text-align: center;
+      margin: 30px;
+    }
+
+    .btn-container button {
+      padding: 12px 25px;
+      margin: 5px;
+      border-radius: 30px;
+      border: none;
+      color: white;
+      font-size: 1rem;
+      cursor: pointer;
+      background-color: #600;
+      transition: all 0.3s;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    }
+
+    .btn-container button:hover {
+      background-color: #800;
+      transform: translateY(-3px);
+      box-shadow: 0 6px 12px rgba(0,0,0,0.3);
+    }
+
+    .btn-container button:active {
+      transform: translateY(1px);
+    }
+
+    /* Signup Modal Styles */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0,0,0,0.7);
+      animation: fadeIn 0.3s;
+    }
+
+    .modal-content {
+      background-color: #fefefe;
+      margin: 5% auto;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+      width: 90%;
+      max-width: 500px;
+      position: relative;
+      animation: slideDown 0.4s;
+    }
+
+    @keyframes slideDown {
+      from {top: -300px; opacity: 0}
+      to {top: 0; opacity: 1}
+    }
+
+    .close {
+      position: absolute;
+      right: 25px;
+      top: 15px;
+      color: #aaa;
+      font-size: 28px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .close:hover {
+      color: #333;
+    }
+
+    .signup-form {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .form-group label {
+      font-weight: 500;
+      color: #555;
+    }
+
+    .form-group input {
+      padding: 12px 15px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      font-size: 16px;
+      transition: all 0.3s;
+    }
+
+    .form-group input:focus {
+      border-color: #a80000;
+      box-shadow: 0 0 0 3px rgba(168,0,0,0.1);
+      outline: none;
+    }
+
+    .signup-btn {
+      background: linear-gradient(to right, #a80000, #ff4d4d);
+      color: white;
+      padding: 14px;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+      margin-top: 10px;
+    }
+
+    .signup-btn:hover {
+      background: linear-gradient(to right, #800000, #cc0000);
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+
+    .social-login {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin: 20px 0;
+    }
+
+    .social-btn {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 18px;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .social-btn:hover {
+      transform: translateY(-3px);
+    }
+
+    .facebook { background-color: #3b5998; }
+    .google { background-color: #db4437; }
+    .twitter { background-color: #1da1f2; }
+
+    .login-link {
+      text-align: center;
+      margin-top: 15px;
+      color: #666;
+    }
+
+    .login-link a {
+      color: #a80000;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .login-link a:hover {
+      text-decoration: underline;
+    }
+
+    /* Chatbot Styles */
+    .chatbot {
+      display: none;
+      position: fixed;
+      bottom: 80px;
+      right: 20px;
+      width: 300px;
+      height: 400px;
+      background: white;
+      border: 1px solid #ccc;
+      border-radius: 15px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.2);
+      z-index: 1000;
+      overflow: hidden;
+      flex-direction: column;
+    }
+
+    .chat-header {
+      background: #600;
+      color: white;
+      padding: 10px;
+      text-align: center;
+      position: relative;
+      font-weight: 600;
+    }
+
+    .chatlog {
+      padding: 10px;
+      height: 300px;
+      overflow-y: auto;
+      font-size: 0.9em;
+      background-color: #f9f9f9;
+    }
+
+    #chatInput {
+      width: 100%;
+      padding: 10px;
+      border: none;
+      border-top: 1px solid #ccc;
+      font-size: 14px;
+    }
+
+    .chat-close-btn {
+      position: absolute;
+      right: 10px;
+      top: 6px;
+      color: white;
+      font-size: 1.2em;
+      cursor: pointer;
+    }
+
+    /* Features Section */
+    .features {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 30px;
+      padding: 40px 20px;
+      background-color: #fff;
+      margin: 40px 0;
+    }
+
+    .feature-card {
+      flex: 1;
+      min-width: 250px;
+      max-width: 350px;
+      background: white;
+      border-radius: 15px;
+      padding: 25px;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+      transition: all 0.3s;
+      text-align: center;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+    }
+
+    .feature-icon {
+      font-size: 40px;
+      color: #a80000;
+      margin-bottom: 15px;
+    }
+
+    .feature-title {
+      font-size: 1.3em;
+      font-weight: 600;
+      margin-bottom: 10px;
+      color: #333;
+    }
+
+    .feature-desc {
+      color: #666;
+      line-height: 1.6;
+    }
+
+    /* Testimonials */
+    .testimonials {
+      background: linear-gradient(135deg, rgba(168,0,0,0.05) 0%, rgba(255,255,255,0.9) 100%);
+      padding: 50px 20px;
+      text-align: center;
+    }
+
+    .testimonials h2 {
+      color: #a80000;
+      margin-bottom: 40px;
+    }
+
+    .testimonial-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 30px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .testimonial {
+      flex: 1;
+      min-width: 300px;
+      max-width: 400px;
+      background: white;
+      padding: 25px;
+      border-radius: 15px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      position: relative;
+    }
+
+  
+
+    .testimonial-text {
+      font-style: italic;
+      color: #555;
+      line-height: 1.6;
+      margin-bottom: 20px;
+    }
+
+    .testimonial-author {
+      font-weight: 600;
+      color: #a80000;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeInUp {
+      0% { opacity: 0; transform: translateY(40px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 768px) {
+      nav ul {
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      .box {
+        width: 100px;
+        height: 100px;
+        font-size: 12px;
+      }
+
+      ul.b {
+        flex-direction: column;
+        gap: 15px;
+      }
+
+      .chatbot {
+        width: 90%;
+        height: 60%;
+        bottom: 60px;
+        right: 5%;
+      }
+
+      .modal-content {
+        margin: 10% auto;
+        width: 95%;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <div class="main">Horticultural Crops</div>
+   
+    <ul class="b">
+      <li><a href="crops.html">Crops</a></li>
+      <li><a href="uses.html">USES</a></li>
+      <li><a href="market.html">Market Info</a></li>
+      <li><a href="price.html">Order items</a></li>
+    </ul>
+    <ul>
+      <li><a href="home.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="contact.html">Contact</a></li>
+      <li><a href="#" id="signupBtn">Sign Up</a></li>
+    </ul>
+  </nav>
+
+  <div class="intro">
+    <h2>Welcome to the World of Horticultural Crops</h2>
+    <p>Explore vibrant fruits, fresh vegetables, fragrant herbs, and more. Learn about their uses, storage tips, and current market prices. Ask the bot for crop info!</p>
+  </div>
+
+  <div class="container">
+    <img src="1351846.png" class="image" alt="Horticultural Image">
+  
+    <div class="box box1">
+      <button onclick="window.open('crops.html', '_blank')">🌾 Crops</button>
+    </div>
+  
+    <div class="box box2">
+      <button onclick="window.open('uses.html', '_blank')">📋 Uses</button>
+    </div>
+  
+    <div class="box box3">
+      <button onclick="window.open('price.html', '_blank')">💰 Order Items</button>
+    </div>
+  
+    <div class="box box4">
+      <button onclick="window.open('market.html', '_blank')">✅ Market Info</button>
+    </div>
+  </div>
+
+  <!-- Features Section -->
+  <div class="features">
+    <div class="feature-card">
+      <div class="feature-icon">
+        <i class="fas fa-seedling"></i>
+      </div>
+      <h3 class="feature-title">Extensive Crop Database</h3>
+      <p class="feature-desc">Access detailed information on hundreds of horticultural crops from around the world.</p>
+    </div>
+    
+    <div class="feature-card">
+      <div class="feature-icon">
+        <i class="fas fa-chart-line"></i>
+      </div>
+      <h3 class="feature-title">Market Trends</h3>
+      <p class="feature-desc">Stay updated with real-time market prices and demand trends for your crops.</p>
+    </div>
+    
+    <div class="feature-card">
+      <div class="feature-icon">
+        <i class="fas fa-robot"></i>
+      </div>
+      <h3 class="feature-title">Smart Assistant</h3>
+      <p class="feature-desc">Our AI chatbot can answer all your horticulture questions instantly.</p>
+    </div>
+  </div>
+
+  <!-- Testimonials Section -->
+  <div class="testimonials">
+    <h2>What Our Users Say</h2>
+    <div class="testimonial-container">
+      <div class="testimonial">
+        <p class="testimonial-text">This platform has transformed how I manage my farm. The market info helps me get the best prices for my produce.</p>
+        <div class="testimonial-author">- Rajesh Kumar, Farmer</div>
+      </div>
+      
+      <div class="testimonial">
+        <p class="testimonial-text">As a home gardener, I've learned so much about crop care and storage. The information is practical and easy to follow.</p>
+        <div class="testimonial-author">- Priya Sharma, Home Gardener</div>
+      </div>
+      
+      <div class="testimonial">
+        <p class="testimonial-text">The chatbot is incredibly helpful! It answers all my questions about different crops and their uses instantly.</p>
+        <div class="testimonial-author">- Amit Patel, Agri-Student</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="btn-container">
+    <button onclick="toggleChatbot()">💬 Chat with Assistant</button>
+    <button onclick="document.getElementById('signupBtn').click()">🌟 Join Our Community</button>
+  </div>
+
+  <!-- Signup Modal -->
+  <div id="signupModal" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <h2 style="text-align: center; color: #a80000; margin-bottom: 20px;">Create Your Account</h2>
+      
+      <form class="signup-form">
+        <div class="form-group">
+          <label for="name">Full Name</label>
+          <input type="text" id="name" placeholder="Enter your full name" required>
+        </div>
+        
+        <div class="form-group">
+          <label for="email">Email Address</label>
+          <input type="email" id="email" placeholder="Enter your email" required>
+        </div>
+        
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" id="password" placeholder="Create a password" required>
+        </div>
+        
+        <div class="form-group">
+          <label for="confirm-password">Confirm Password</label>
+          <input type="password" id="confirm-password" placeholder="Confirm your password" required>
+        </div>
+        
+        <button type="submit" class="signup-btn">Sign Up Now</button>
+      </form>
+      
+      <div class="social-login">
+        <div class="social-btn facebook">
+          <i class="fab fa-facebook-f"></i>
+        </div>
+        <div class="social-btn google">
+          <i class="fab fa-google"></i>
+        </div>
+        <div class="social-btn twitter">
+          <i class="fab fa-twitter"></i>
+        </div>
+      </div>
+      
+      <div class="login-link">
+        Already have an account? <a href="#">Log In</a>
+      </div>
+    </div>
+  </div>
+
+  <div id="chatbot" class="chatbot">
+    <div class="chat-header">
+      Ask about Crops
+      <span class="chat-close-btn" onclick="toggleChatbot()">✖</span>
+    </div>
+    <div id="chatlog" class="chatlog"></div>
+    <input id="chatInput" type="text" placeholder="Ask something..." onkeydown="if(event.key==='Enter') sendMessage()">
+  </div>
+
+  <!-- Extra Information Section -->
+  <div style="padding: 30px; text-align: center; background-color: #fff3f3; border-top: 2px solid #a80000; margin-top: 40px;">
+    <h3 style="color: #a80000;">🌱 Did You Know?</h3>
+    <p style="font-size: 1.1em; max-width: 800px; margin: auto;">
+      Horticulture not only boosts nutrition but also helps in economic empowerment. Whether you're a farmer, gardener, or just curious, you can explore our <a href="guidance.html" style="color: #600; text-decoration: underline;">Crop Guides</a> to learn more!
+    </p>
+    <p style="margin-top: 20px;">
+      ✅ Try asking the chatbot things like: <br />
+      <code>"Tell me about mint"</code>, <code>"What is mango?"</code>, or <code>"Uses of garlic"</code>
+    </p>
+  </div>
+
+  <script>
+    // Modal functionality
+    const modal = document.getElementById("signupModal");
+    const btn = document.getElementById("signupBtn");
+    const span = document.getElementsByClassName("close")[0];
+
+    btn.onclick = function() {
+      modal.style.display = "block";
+    }
+
+    span.onclick = function() {
+      modal.style.display = "none";
+    }
+
+    window.onclick = function(event) {
+      if (event.target == modal) {
+        modal.style.display = "none";
+      }
+    }
+
+    // Form submission
+    document.querySelector('.signup-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      alert('Thank you for signing up! We will contact you soon.');
+      modal.style.display = "none";
+    });
+
+    // Chatbot functionality
+    function toggleSelect(btn) {
+      const box = btn.parentElement;
+      box.classList.toggle("selected");
+    }
+
+    function toggleChatbot() {
+      const bot = document.getElementById("chatbot");
+      bot.style.display = (bot.style.display === "none" || bot.style.display === "") ? "flex" : "none";
+    }
+
+    function sendMessage() {
+      const input = document.getElementById("chatInput");
+      const chatlog = document.getElementById("chatlog");
+      const userMsg = input.value.trim();
+      if (!userMsg) return;
+
+      const userBubble = `<div><strong>You:</strong> ${userMsg}</div>`;
+      let botReply = `<div><strong>Assistant:</strong> Sorry, I don't have that info yet.</div>`;
+
+      const responses = {
+  mango: "Mango is a tropical fruit rich in vitamins A & C. It's known as the 'king of fruits' in many parts of the world.",
+  tomato: "Tomato is both a fruit and vegetable, rich in lycopene which is great for heart health.",
+  chili: "Chili is known for its spice and is used globally. It contains capsaicin which has many health benefits.",
+  coriander: "Coriander is a herb used in cooking and garnishing. Both leaves and seeds are used in different cuisines.",
+  apple: "Apple is a sweet, crunchy fruit that is high in fiber and vitamin C. 'An apple a day keeps the doctor away!'",
+  banana: "Banana is a tropical fruit rich in potassium and vitamin B6. It's a great energy booster.",
+  carrot: "Carrot is a root vegetable known for its high vitamin A content which is good for eyesight.",
+  spinach: "Spinach is a leafy green vegetable packed with iron and vitamins A & C. Popeye's favorite!",
+  garlic: "Garlic is used as a flavoring in many dishes and has medicinal properties including boosting immunity.",
+  ginger: "Ginger is a root used in cooking and has anti-inflammatory properties. Great for digestion too.",
+  basil: "Basil is a fragrant herb used in cooking, especially in Italian cuisine. It has a sweet, slightly peppery flavor.",
+  mint: "Mint is a refreshing herb commonly used in drinks and desserts. It's also good for digestion.",
+  broccoli: "Broccoli is a cruciferous vegetable rich in vitamins C, K, and fiber. It's considered a superfood.",
+  lettuce: "Lettuce is a leafy vegetable commonly used in salads and sandwiches. It's very low in calories.",
+  cucumber: "Cucumber is a hydrating vegetable, mostly composed of water and low in calories. Great for skin health.",
+  avocado: "Avocado is a fruit known for its creamy texture and high healthy fat content. It's very nutritious.",
+  lemon: "Lemon is a citrus fruit rich in vitamin C, often used for its tart flavor in cooking and drinks.",
+  strawberry: "Strawberries are red, sweet berries rich in antioxidants and vitamin C. They're actually not true berries botanically!",
+  potato: "Potato is a starchy vegetable that is widely used in various dishes around the world. It's very versatile.",
+  watermelon: "Watermelon is a refreshing, hydrating fruit with a high water content, especially enjoyed in summer.",
+  pumpkin: "Pumpkin is a type of squash that is rich in vitamins A and C and used in both sweet and savory dishes.",
+  
+  // Additional items
+  pineapple: "Pineapple is a tropical fruit rich in vitamin C and bromelain, an enzyme that helps digestion.",
+  pomegranate: "Pomegranate is a fruit filled with antioxidant-rich seeds and is good for heart health.",
+  almond: "Almond is a nut high in healthy fats, protein, and vitamin E. Great as a snack or in desserts.",
+  cashew: "Cashew is a kidney-shaped nut that's buttery and rich in copper, good for bone and brain health.",
+  turmeric: "Turmeric is a bright yellow spice used for its anti-inflammatory properties, especially in curries.",
+  cardamom: "Cardamom is a spice with a strong, aromatic flavor, often used in both savory and sweet dishes.",
+  cloves: "Cloves are dried flower buds used as a spice and in herbal medicine for their antiseptic properties.",
+  saffron: "Saffron is the world's most expensive spice, derived from the crocus flower. Just a little gives rich color and flavor.",
+  rose: "Rose flowers are used ornamentally and in culinary applications like rose water and syrups.",
+  marigold: "Marigolds are vibrant flowers used in decorations, rituals, and sometimes as natural pest repellents in gardens.",
+  jasmine: "Jasmine is a fragrant flower used in perfumes, teas, and as an ornamental plant.",
+  jackfruit: "Jackfruit is a large tropical fruit with a sweet flavor. Its unripe form is used in savory dishes as a meat substitute.",
+  beetroot: "Beetroot is a root vegetable rich in nitrates and antioxidants, often used in salads and juices.",
+  radish: "Radish is a crunchy root vegetable with a peppery flavor, often eaten raw in salads.",
+  brinjal: "Brinjal or eggplant is a versatile vegetable used in many cuisines, known for its spongy texture.",
+  coconut: "Coconut is a fruit used for its water, milk, flesh, and oil. It's highly versatile in tropical cuisines.",
+  fennel: "Fennel is a plant whose seeds and bulb are used in cooking. It has a mild, licorice-like flavor.",
+  tamarind: "Tamarind is a tangy fruit used in chutneys, sauces, and traditional medicine.",
+  peach: "Peach is a juicy fruit with soft skin and sweet flesh, rich in vitamin C and fiber.",
+  guava: "Guava is a tropical fruit rich in vitamin C, fiber, and antioxidants, great for immune support."
+};
+
+
+      const lower = userMsg.toLowerCase();
+      for (let key in responses) {
+        if (lower.includes(key)) {
+          botReply = `<div><strong>Assistant:</strong> ${responses[key]}</div>`;
+          break;
+        }
+      }
+
+      chatlog.innerHTML += userBubble + botReply;
+      chatlog.scrollTop = chatlog.scrollHeight;
+      input.value = "";
+    }
+  </script>
+</body>
+</html>

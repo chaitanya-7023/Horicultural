@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Horticultural Plant Info</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0; padding: 0; box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+    body {
+      background-color: #f1f8f6;
+      color: #333;
+      padding: 20px;
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 30px;
+      color: #388e3c;
+      font-size: 2.5em;
+    }
+    .list {
+      max-width: 1000px;
+      margin: auto;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: center;
+    }
+    .item {
+      background: #ffffff;
+      padding: 25px;
+      border-radius: 15px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      width: 200px;
+      height: 220px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      font-size: 1.2em;
+      color: #388e3c;
+      cursor: pointer;
+      transition: 0.3s ease;
+    }
+    .item:hover {
+      background-color: #e8f5e9;
+      transform: translateY(-5px);
+    }
+    .item strong {
+      font-size: 1.3em;
+      margin-bottom: 8px;
+    }
+    .item em {
+      font-size: 1em;
+      color: #555;
+    }
+    .info-box {
+      background-color: #ffffff;
+      border-radius: 15px;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+      max-width: 650px;
+      margin: 30px auto;
+      padding: 30px;
+      display: none;
+    }
+    .info-box h3 {
+      color: #388e3c;
+      font-size: 2em;
+      margin-bottom: 15px;
+    }
+    .info-box p {
+      font-size: 1.1em;
+      margin-bottom: 20px;
+    }
+    .btn {
+      background-color: #388e3c;
+      color: white;
+      padding: 12px 20px;
+      font-size: 1.1em;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    .btn:hover {
+      background-color: #2e7d32;
+    }
+    .back-button {
+      margin-top: 20px;
+      background: linear-gradient(to right, #4caf50, #81c784);
+      padding: 12px 25px;
+      border-radius: 8px;
+      cursor: pointer;
+      text-decoration: none;
+      color: white;
+    }
+    .cart-view, .order-history {
+      margin-top: 30px;
+      background-color: #ffffff;
+      border-radius: 15px;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+      padding: 30px;
+      display: none;
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .cart-view h2, .order-history h2 {
+      font-size: 2em;
+      color: #388e3c;
+      margin-bottom: 20px;
+    }
+    .cart-item, .order-item {
+      padding: 12px;
+      font-size: 1.2em;
+      border-bottom: 1px solid #ddd;
+      color: #555;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .cart-item:last-child, .order-item:last-child {
+      border-bottom: none;
+    }
+    .quantity-controls {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .quantity-btn {
+      background-color: #388e3c;
+      color: white;
+      border: none;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 1em;
+    }
+    .quantity-btn:hover {
+      background-color: #2e7d32;
+    }
+    .remove-btn {
+      background-color: #f44336;
+      color: white;
+      border: none;
+      padding: 5px 10px;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-left: 10px;
+    }
+    .remove-btn:hover {
+      background-color: #d32f2f;
+    }
+    .total-section {
+      margin-top: 20px;
+      padding-top: 20px;
+      border-top: 2px solid #388e3c;
+      font-size: 1.3em;
+      font-weight: bold;
+      text-align: right;
+    }
+    .success-message {
+      color: #388e3c;
+      text-align: center;
+      margin-top: 20px;
+      font-size: 1.2em;
+      display: none;
+    }
+    .order-date {
+      font-size: 0.9em;
+      color: #777;
+      margin-bottom: 10px;
+    }
+    .order-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid #eee;
+    }
+    .order-details {
+      margin-top: 15px;
+    }
+    .history-btn {
+      background-color: #ff9800;
+      color: white;
+      padding: 12px 20px;
+      font-size: 1.1em;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      margin-left: 10px;
+    }
+    .history-btn:hover {
+      background-color: #f57c00;
+    }
+    @media (max-width: 600px) {
+      .item {
+        width: 100%;
+        height: auto;
+        padding: 15px;
+        font-size: 1.1em;
+      }
+      .btn, .history-btn {
+        width: 100%;
+        margin-top: 10px;
+        margin-left: 0;
+      }
+    } 
+    #backBtn {
+      position: fixed;
+      top: 600px;
+      left: 20px;
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: #28a745;
+      color: white;
+      border: none;
+      border-radius: 25px;
+      cursor: pointer;
+      z-index: 1000;
+      display: none;
+    }
+    #backBtn:hover {
+      background-color: #218838;
+    }
+  </style>
+</head>
+
+<body>
+ 
+  <h1>🌿 Horticultural Plant Info</h1>
+  <button id="backBtn" onclick="goBack()">⬅️ Back</button>
+  <div id="categoryContainer" class="list">
+    <div class="item" onclick="showCrops('flowers')">🌸 Flower Plants</div>
+    <div class="item" onclick="showCrops('fruits')">🍎 Fruit Plants</div>
+    <div class="item" onclick="showCrops('vegetables')">🥦 Vegetable Plants</div>
+    <div class="item" onclick="showCrops('spices')">🌶️ Spice Plants</div>
+    <div class="item" onclick="showCrops('herbs')">🌿 Herb Plants</div>
+    <div class="item" onclick="showCrops('medical')">💊 Medical Plants</div>
+    <div class="item" onclick="showCrops('nuts')">🌰 Nut Plants</div>
+  </div>
+
+  <div id="cropContainer" class="list" style="display: none;"></div>
+  <div id="infoBox" class="info-box"></div>
+
+  <div>
+    <span class="back-button" onclick="goBack()" id="backBtn" style="display: none;">🔙 Back</span>
+    <button class="history-btn" onclick="viewOrderHistory()">📜 Order History</button>
+    <button class="btn" onclick="viewCart()" style="float:right;">🛒 View Cart (${cart.length})</button>
+  </div>
+
+  <div id="cartView" class="cart-view">
+    <h2>🛒 Your Cart</h2>
+    <div id="cartItems"></div>
+    <div id="cartTotal" class="total-section"></div>
+    <button class="btn" onclick="placeOrder()">🧾 Place Order</button>
+    <div id="successMessage" class="success-message"></div>
+  </div>
+
+  <div id="orderHistory" class="order-history">
+    <h2>📜 Order History</h2>
+    <div id="historyItems"></div>
+    <button class="btn" onclick="goBack()">🔙 Back</button>
+  </div>
+
+  <script>
+    const cropData = {
+      flowers: [
+        { name: "Rose", storage: "Cool moisture-controlled room", price: "₹100" },
+        { name: "Lily", storage: "Water at room temp", price: "₹150" },
+        { name: "Tulip", storage: "Refrigerated at 1°C", price: "₹200" },
+        { name: "Sunflower", storage: "Upright, dry place", price: "₹120" },
+        { name: "Orchid", storage: "Cool shaded area", price: "₹300" },
+        { name: "Marigold", storage: "Shaded area", price: "₹80" },
+        { name: "Hibiscus", storage: "Moderate temp & sunlight", price: "₹110" },
+        { name: "Daisy", storage: "Room temp in vase", price: "₹95" },
+        { name: "Petunia", storage: "Dry, cool area", price: "₹105" },
+        { name: "Jasmine", storage: "Cool with slight moisture", price: "₹160" },
+        { name: "Chrysanthemum", storage: "Well-ventilated room", price: "₹130" }
+      ],
+      fruits: [
+        { name: "Mango Tree", storage: "Cool place post-ripening", price: "₹1500" },
+        { name: "Apple Tree", storage: "Cool dry storage", price: "₹1200" },
+        { name: "Guava Plant", storage: "Cool shaded area", price: "₹300" },
+        { name: "Banana Plant", storage: "Dry humid free area", price: "₹200" },
+        { name: "Papaya Plant", storage: "Fridge or airy shelf", price: "₹250" },
+        { name: "Lemon Plant", storage: "Cool dry area", price: "₹350" },
+        { name: "Pomegranate", storage: "Ventilated dark room", price: "₹500" },
+        { name: "Orange Plant", storage: "Keep at room temp", price: "₹400" },
+        { name: "Chikoo Plant", storage: "Low humidity room", price: "₹380" },
+        { name: "Custard Apple", storage: "Wrap in paper, refrigerate", price: "₹420" }
+      ],
+      vegetables: [
+        { name: "Tomato", storage: "Room temp", price: "₹60" },
+        { name: "Carrot", storage: "Fridge in bag", price: "₹75" },
+        { name: "Spinach", storage: "Fridge wrapped", price: "₹50" },
+        { name: "Brinjal", storage: "Room temp", price: "₹55" },
+        { name: "Cauliflower", storage: "Cool fridge", price: "₹85" },
+        { name: "Onion", storage: "Dry and dark", price: "₹40" },
+        { name: "Potato", storage: "Dark ventilated box", price: "₹45" },
+        { name: "Cabbage", storage: "Fridge", price: "₹60" },
+        { name: "Radish", storage: "Wrapped in paper", price: "₹70" },
+        { name: "Beans", storage: "Moisture-controlled fridge", price: "₹90" }
+      ],
+      spices: [
+        { name: "Ginger", storage: "Cool & dry", price: "₹150" },
+        { name: "Turmeric", storage: "Airtight container", price: "₹500" },
+        { name: "Pepper", storage: "Sealed container", price: "₹200" },
+        { name: "Cumin", storage: "Room temp in jar", price: "₹180" },
+        { name: "Cardamom", storage: "Air-tight box", price: "₹350" },
+        { name: "Clove", storage: "Glass container", price: "₹300" },
+        { name: "Coriander", storage: "Dry spice rack", price: "₹160" },
+        { name: "Fennel", storage: "Dry & sealed", price: "₹130" },
+        { name: "Fenugreek", storage: "Airtight & dry", price: "₹100" }
+      ],
+      herbs: [
+        { name: "Mint", storage: "Fridge in towel", price: "₹50" },
+        { name: "Basil", storage: "Room temp in water", price: "₹80" },
+        { name: "Oregano", storage: "Dry area", price: "₹90" },
+        { name: "Thyme", storage: "Cool kitchen shelf", price: "₹70" },
+        { name: "Rosemary", storage: "Fridge in jar", price: "₹85" },
+        { name: "Parsley", storage: "Glass with water", price: "₹75" },
+        { name: "Curry Leaves", storage: "Wrap in foil", price: "₹65" },
+        { name: "Dill", storage: "Paper-wrapped fridge", price: "₹60" }
+      ],
+      medical: [
+        { name: "Aloe Vera", storage: "Dry cool area", price: "₹100" },
+        { name: "Tulsi", storage: "Sunny window", price: "₹120" },
+        { name: "Neem", storage: "Dry & cool", price: "₹140" },
+        { name: "Ashwagandha", storage: "Warm spot", price: "₹160" },
+        { name: "Brahmi", storage: "Indirect sunlight", price: "₹130" }
+      ],
+      nuts: [
+        { name: "Almond Tree", storage: "Dry sealed jar", price: "₹2000" },
+        { name: "Cashew Tree", storage: "Cool and dry", price: "₹2200" },
+        { name: "Walnut Tree", storage: "Dark cool room", price: "₹2100" },
+        { name: "Pecan Tree", storage: "Dry ventilated space", price: "₹2300" }
+      ]
+    };
+
+    let currentCategory = "";
+    let cart = [];
+    let orderHistory = JSON.parse(localStorage.getItem('orderHistory')) || [];
+
+    function showCrops(category) {
+      currentCategory = category;
+      document.getElementById("categoryContainer").style.display = "none";
+      document.getElementById("infoBox").style.display = "none";
+      document.getElementById("cropContainer").style.display = "flex";
+      document.getElementById("cropContainer").innerHTML = "";
+      document.getElementById("backBtn").style.display = "inline-block";
+      document.getElementById("cartView").style.display = "none";
+      document.getElementById("orderHistory").style.display = "none";
+
+      cropData[category].forEach(crop => {
+        const div = document.createElement("div");
+        div.classList.add("item");
+        div.innerHTML = `<strong>${crop.name}</strong><br><em>${crop.price}</em>`;
+        div.onclick = () => showCropDetails(crop);
+        document.getElementById("cropContainer").appendChild(div);
+      });
+    }
+
+    function showCropDetails(crop) {
+      const infoBox = document.getElementById("infoBox");
+      const cartItem = cart.find(item => item.name === crop.name);
+
+      infoBox.innerHTML = `
+        <h3>${crop.name}</h3>
+        <p><strong>Storage Tips:</strong> ${crop.storage}</p>
+        <p><strong>Price:</strong> ${crop.price}</p>
+        <div style="display: flex; align-items: center; gap: 10px; margin-top: 20px;">
+          <button class="quantity-btn" onclick="updateQuantity('${crop.name}', -1)">-</button>
+          <span>${cartItem ? cartItem.quantity : 0}</span>
+          <button class="quantity-btn" onclick="updateQuantity('${crop.name}', 1)">+</button>
+        </div>
+      `;
+      infoBox.style.display = "block";
+      document.getElementById("cropContainer").style.display = "none";
+    }
+
+    function updateQuantity(name, change) {
+      const itemIndex = cart.findIndex(item => item.name === name);
+      const price = getPriceByName(name);
+      
+      if (itemIndex !== -1) {
+        // Item exists in cart
+        const newQuantity = cart[itemIndex].quantity + change;
+        if (newQuantity <= 0) {
+          cart.splice(itemIndex, 1); // Remove if quantity is 0 or less
+        } else {
+          cart[itemIndex].quantity = newQuantity;
+        }
+      } else if (change > 0) {
+        // Add new item to cart
+        cart.push({ name, price, quantity: 1 });
+      }
+      
+      // Update cart button count
+      updateCartButton();
+      
+      // Refresh the info box if open
+      if (document.getElementById("infoBox").style.display === "block") {
+        const currentCrop = cropData[currentCategory].find(crop => crop.name === name);
+        showCropDetails(currentCrop);
+      }
+      
+      // Refresh cart view if open
+      if (document.getElementById("cartView").style.display === "block") {
+        renderCart();
+      }
+    }
+
+    function getPriceByName(name) {
+      for (const category in cropData) {
+        const item = cropData[category].find(item => item.name === name);
+        if (item) return item.price;
+      }
+      return "₹0";
+    }
+
+    function updateCartButton() {
+      const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+      document.querySelector('.btn[onclick="viewCart()"]').textContent = `🛒 View Cart (${totalItems})`;
+    }
+
+    function viewCart() {
+      renderCart();
+      document.getElementById("cartView").style.display = "block";
+      document.getElementById("infoBox").style.display = "none";
+      document.getElementById("cropContainer").style.display = "none";
+      document.getElementById("orderHistory").style.display = "none";
+    }
+
+    function renderCart() {
+      const cartItemsContainer = document.getElementById("cartItems");
+      cartItemsContainer.innerHTML = "";
+
+      if (cart.length === 0) {
+        cartItemsContainer.innerHTML = "<p>Your cart is empty.</p>";
+        document.getElementById("cartTotal").textContent = "";
+        return;
+      }
+
+      let total = 0;
+
+      cart.forEach(item => {
+        const numericPrice = parseInt(item.price.replace(/[^\d]/g, ""));
+        total += numericPrice * item.quantity;
+
+        const div = document.createElement("div");
+        div.className = "cart-item";
+        div.innerHTML = `
+          <span>${item.name} (${item.quantity} × ${item.price})</span>
+          <div class="quantity-controls">
+            <button class="quantity-btn" onclick="updateQuantity('${item.name}', -1)">−</button>
+            <span>${item.quantity}</span>
+            <button class="quantity-btn" onclick="updateQuantity('${item.name}', 1)">+</button>
+            <button class="remove-btn" onclick="removeFromCart('${item.name}')">Remove</button>
+          </div>
+        `;
+        cartItemsContainer.appendChild(div);
+      });
+
+      document.getElementById("cartTotal").textContent = `Total: ₹${total}`;
+    }
+
+    function removeFromCart(name) {
+      const index = cart.findIndex(item => item.name === name);
+      if (index !== -1) {
+        cart.splice(index, 1);
+        renderCart();
+        updateCartButton();
+      }
+    }
+
+    function placeOrder() {
+      if (cart.length === 0) return;
+
+      // Create order object
+      const order = {
+        date: new Date().toLocaleString(),
+        items: [...cart],
+        total: calculateTotal()
+      };
+
+      // Add to order history
+      orderHistory.unshift(order);
+      localStorage.setItem('orderHistory', JSON.stringify(orderHistory));
+
+      // Show success message
+      document.getElementById("successMessage").textContent = "✅ Order placed successfully!";
+      document.getElementById("successMessage").style.display = "block";
+      
+      // Clear cart
+      cart = [];
+      updateCartButton();
+      renderCart();
+      
+      setTimeout(() => {
+        document.getElementById("successMessage").style.display = "none";
+        goBack();
+      }, 2000);
+    }
+
+    function calculateTotal() {
+      return cart.reduce((sum, item) => {
+        const numericPrice = parseInt(item.price.replace(/[^\d]/g, ""));
+        return sum + (numericPrice * item.quantity);
+      }, 0);
+    }
+
+    function viewOrderHistory() {
+      document.getElementById("orderHistory").style.display = "block";
+      document.getElementById("categoryContainer").style.display = "none";
+      document.getElementById("cropContainer").style.display = "none";
+      document.getElementById("infoBox").style.display = "none";
+      document.getElementById("cartView").style.display = "none";
+      
+      const historyItems = document.getElementById("historyItems");
+      historyItems.innerHTML = "";
+      
+      if (orderHistory.length === 0) {
+        historyItems.innerHTML = "<p>No past orders found.</p>";
+        return;
+      }
+      
+      orderHistory.forEach((order, index) => {
+        const orderDiv = document.createElement("div");
+        orderDiv.className = "order-item";
+        
+        let itemsHtml = order.items.map(item => 
+          `<div>${item.name} (${item.quantity} × ${item.price})</div>`
+        ).join("");
+        
+        orderDiv.innerHTML = `
+          <div class="order-header">
+            <strong>Order #${orderHistory.length - index}</strong>
+            <span>₹${order.total}</span>
+          </div>
+          <div class="order-date">${order.date}</div>
+          <div class="order-details">${itemsHtml}</div>
+        `;
+        
+        historyItems.appendChild(orderDiv);
+      });
+    }
+
+    function goBack() {
+      document.getElementById("categoryContainer").style.display = "flex";
+      document.getElementById("cropContainer").style.display = "none";
+      document.getElementById("infoBox").style.display = "none";
+      document.getElementById("cartView").style.display = "none";
+      document.getElementById("orderHistory").style.display = "none";
+      document.getElementById("backBtn").style.display = "none";
+    }
+
+    window.onload = function() {
+      // Check if back button is already added
+      if (!document.querySelector('.back-btn')) {
+        var backButton = document.createElement('a');
+        backButton.href = 'pratice.html';
+        backButton.classList.add('back-btn');
+        backButton.innerHTML = '⬅ Back to Home';
+        
+        // Add the back button to a specific place (like top of page)
+        document.body.prepend(backButton);
+      }
+    };
+  </script>
+</body>
+</html>

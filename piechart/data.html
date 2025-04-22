@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Horticultural Crop Pricing</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+            border-collapse: collapse;
+            padding: 8px;
+        }
+        table {
+            margin-bottom: 20px;
+            width: 100%;
+        }
+        canvas {
+            max-width: 600px;
+            margin: auto;
+        }
+    </style>
+</head>
+<body>
+    <h2>Horticultural Crop Pricing</h2>
+    <table id="cropTable">
+        <tr>
+            <th>Crop Name</th>
+            <th>Price (USD)</th>
+        </tr>
+    </table>
+    <canvas id="priceChart"></canvas>
+
+    <script>
+        async function fetchCropData() {
+            const response = await fetch('get_crops.php');
+            const crops = await response.json();
+            const table = document.getElementById('cropTable');
+
+            crops.forEach(crop => {
+                const row = table.insertRow();
+                const nameCell = row.insertCell(0);
+                const priceCell = row.insertCell(1);
+                nameCell.textContent = crop.name;
+                priceCell.textContent = crop.price;
+            });
+
+            const labels = crops.map(crop => crop.name);
+            const data = crops.map(crop => crop.price);
+
+            const ctx = document.getElementById('priceChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'pie',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Crop Prices',
+                        data: data,
+                        backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0', '#9966FF'],
+                    }]
+                },
+            });
+        }
+
+        fetchCropData();
+    </script>
+</body>
+</html>

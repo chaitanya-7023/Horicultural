@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Checkout</title>
+  <style>
+    /* (styles remain unchanged) */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      min-height: 100vh;
+      background: url("checkoutimage.avif") no-repeat center center fixed;
+      background-size: cover;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .checkout-wrapper {
+      display: flex;
+      max-width: 1000px;
+      width: 100%;
+      gap: 20px;
+    }
+
+    .order-summary {
+      flex: 1;
+      background-color: rgba(255, 255, 255, 0.85);
+      padding: 25px;
+      border-radius: 15px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .form-container {
+      flex: 1;
+      background-color: rgba(255, 255, 255, 0.85);
+      padding: 30px 25px;
+      border-radius: 15px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+      animation: fadeIn 1s ease;
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 25px;
+      color: #2e2e2e;
+    }
+
+    h3 {
+      margin-bottom: 15px;
+      color: #2e2e2e;
+    }
+
+    label {
+      display: block;
+      margin: 12px 0 6px;
+      font-weight: bold;
+      color: #333;
+    }
+
+    input[type="text"], input[type="tel"] {
+      width: 100%;
+      padding: 12px;
+      font-size: 15px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      margin-bottom: 10px;
+    }
+
+    button {
+      width: 100%;
+      padding: 14px;
+      font-size: 16px;
+      background-color: #4caf50;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+      margin-top: 10px;
+    }
+
+    button:hover {
+      background-color: #45a049;
+    }
+
+    .error {
+      color: red;
+      font-size: 14px;
+      margin-top: -8px;
+      margin-bottom: 10px;
+    }
+
+    .order-item {
+      display: flex;
+      justify-content: space-between;
+      padding: 10px 0;
+      border-bottom: 1px solid #eee;
+    }
+
+    .order-total {
+      font-weight: bold;
+      font-size: 1.2em;
+      margin-top: 15px;
+      text-align: right;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 768px) {
+      .checkout-wrapper {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div style="position: absolute; top: 20px; left: 20px;">
+    <a href="price.html" style="
+      display: inline-block;
+      background-color: #f44336;
+      color: white;
+      padding: 10px 16px;
+      text-decoration: none;
+      border-radius: 6px;
+      font-weight: bold;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+      transition: background-color 0.3s ease;
+    " onmouseover="this.style.backgroundColor='#d32f2f'" onmouseout="this.style.backgroundColor='#f44336'">
+      ← Go Back
+    </a>
+  </div>
+
+  <div class="checkout-wrapper">
+    <div class="order-summary">
+      <h2>Your Order Summary</h2>
+      <div id="orderItemsContainer"></div>
+      <div id="orderTotal" class="order-total"></div>
+    </div>
+
+    <form action="checkout.php" method="POST" class="form-container">
+      <h2>Shipping Details</h2>
+
+      <label for="fullName">Full Name:</label>
+      <input type="text" id="fullName" name="fullName" placeholder="Enter your full name" required />
+
+      <label for="phone">Phone Number:</label>
+      <input type="tel" id="phone" name="phone" placeholder="Enter your phone number" required />
+      <p class="error" id="phoneError"></p>
+
+      <label for="pincode">Pincode:</label>
+      <input type="text" id="pincode" name="pincode" placeholder="Enter pincode" oninput="fillAddressByPincode()" required />
+
+      <label for="address">Address:</label>
+      <input type="text" id="address" name="address" placeholder="Auto-filled address or type manually" required />
+
+      <input type="hidden" id="orderDetails" name="orderDetails" value="">
+      <input type="hidden" id="orderTotalValue" name="orderTotalValue" value="">
+
+      <button type="submit">Place Order</button>
+    </form>
+  </div>
+
+  <script>
+    // Load order items from localStorage
+    document.addEventListener('DOMContentLoaded', function () {
+      const conversionRate = 1;
+      const orderItems = JSON.parse(localStorage.getItem('orderItems')) || [];
+      const totalAmountUSD = parseFloat(localStorage.getItem('totalAmount')) || 0.00;
+      const totalAmountINR = totalAmountUSD * conversionRate;
+
+      const orderItemsContainer = document.getElementById('orderItemsContainer');
+      const orderTotal = document.getElementById('orderTotal');
+      const orderDetailsInput = document.getElementById('orderDetails');
+      const orderTotalValueInput = document.getElementById('orderTotalValue');
+
+      if (orderItems.length === 0) {
+        orderItemsContainer.innerHTML = '<p>No items in your order.</p>';
+      } else {
+        let orderDetails = '';
+        orderItems.forEach(item => {
+          const priceINR = item.price * conversionRate;
+          orderItemsContainer.innerHTML += `
+            <div class="order-item">
+              <span>${item.name}</span>
+              <span>₹${priceINR.toFixed(2)}</span>
+            </div>
+          `;
+          orderDetails += `${item.name} - ₹${priceINR.toFixed(2)}\n`;
+        });
+
+        orderTotal.textContent = `Total: ₹${totalAmountINR.toFixed(2)}`;
+        orderDetailsInput.value = orderDetails;
+        orderTotalValueInput.value = totalAmountINR.toFixed(2);
+      }
+    });
+
+    const pincodeMap = {
+      "560001": "MG Road, Bangalore, Karnataka",
+      "110001": "Connaught Place, New Delhi",
+      "400001": "Fort, Mumbai, Maharashtra",
+      "700001": "BBD Bagh, Kolkata, West Bengal",
+      "600001": "Parrys Corner, Chennai, Tamil Nadu"
+    };
+
+    function fillAddressByPincode() {
+      const pincode = document.getElementById("pincode").value.trim();
+      const addressField = document.getElementById("address");
+
+      if (pincodeMap[pincode]) {
+        addressField.value = pincodeMap[pincode];
+      } else {
+        addressField.value = "";
+      }
+    }
+  </script>
+</body>
+</html>

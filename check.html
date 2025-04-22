@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Checkout</title>
+  <style>
+    /* Reset some basic styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #f4f4f9;
+      color: #333;
+      margin: 0;
+      padding: 0;
+    }
+
+    h2 {
+      font-size: 1.8rem;
+      color: #333;
+      margin-bottom: 20px;
+    }
+
+    .checkout-wrapper {
+      display: flex;
+      justify-content: space-between;
+      padding: 30px;
+      max-width: 1200px;
+      margin: 0 auto;
+      gap: 30px;
+    }
+
+    .order-summary {
+      flex: 1;
+      background: linear-gradient(135deg, #6e7bff, #3b94f9);
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease-in-out;
+      color: white;
+    }
+
+    .order-summary:hover {
+      transform: translateY(-10px);
+    }
+
+    .order-item {
+      background: rgba(255, 255, 255, 0.1);
+      margin-bottom: 10px;
+      padding: 10px;
+      border-radius: 5px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      transition: background-color 0.3s ease;
+    }
+
+    .order-item:hover {
+      background-color: rgba(255, 255, 255, 0.2);
+    }
+
+    .order-total {
+      font-weight: bold;
+      font-size: 1.5rem;
+      color: #fff;
+      margin-top: 20px;
+    }
+
+    .form-container {
+      flex: 1;
+      background: #fff;
+      padding: 30px;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    .form-container h3 {
+      font-size: 1.4rem;
+      margin-bottom: 15px;
+    }
+
+    label {
+      font-size: 1rem;
+      margin-bottom: 8px;
+      display: block;
+    }
+
+    input[type="text"], input[type="tel"] {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 20px;
+      border-radius: 8px;
+      border: 1px solid #ddd;
+      font-size: 1rem;
+      transition: border 0.3s ease;
+    }
+
+    input[type="text"]:focus, input[type="tel"]:focus {
+      border-color: #4caf50;
+    }
+
+    button {
+      background-color: #4caf50;
+      color: white;
+      padding: 12px 24px;
+      border-radius: 8px;
+      font-size: 1.1rem;
+      border: none;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #45a049;
+    }
+
+    /* Back button */
+    .back-button {
+      display: inline-block;
+      background-color: #f44336;
+      color: white;
+      padding: 10px 16px;
+      text-decoration: none;
+      border-radius: 6px;
+      font-weight: bold;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      transition: background-color 0.3s ease;
+    }
+
+    .back-button:hover {
+      background-color: #d32f2f;
+    }
+
+    /* Animation */
+    .order-summary, .form-container {
+      animation: fadeIn 1s ease-out;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+  </style>
+</head>
+<body>
+  <div style="position: absolute; top: 20px; left: 20px;">
+    <a href="market.html" class="back-button">← Go Back</a>
+  </div>
+
+  <div class="checkout-wrapper">
+    <!-- Order Summary -->
+    <div class="order-summary">
+      <h2>Order Summary</h2>
+      <div id="orderSummaryItems"></div>
+      <div class="order-total" id="orderTotal">Total: ₹0.00</div>
+    </div>
+
+    <!-- Form for Customer Details -->
+    <div class="form-container">
+      <h2>Customer Information</h2>
+      <form id="checkoutForm" method="POST" action="checkout.php">
+        <h3>Enter Your Details</h3>
+        <label for="fullName">Full Name:</label>
+        <input type="text" id="fullName" name="fullName" required>
+        
+        <label for="phone">Phone:</label>
+        <input type="tel" id="phone" name="phone" required>
+        
+        <label for="address">Address:</label>
+        <input type="text" id="address" name="address" required>
+        
+        <label for="pincode">Pincode:</label>
+        <input type="text" id="pincode" name="pincode" required>
+        
+        <input type="hidden" id="orderDetails" name="orderDetails">
+        <input type="hidden" id="orderTotalValue" name="orderTotalValue">
+        
+        <button type="submit">Complete Order</button>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    let cart = JSON.parse(localStorage.getItem("cartData")) || [];
+    
+    // Populate order summary
+    let orderSummaryItems = document.getElementById("orderSummaryItems");
+    let orderTotal = 0;
+
+    cart.forEach(item => {
+      let itemDiv = document.createElement("div");
+      itemDiv.classList.add("order-item");
+      itemDiv.innerHTML = `${item.name} - ${item.price}`;
+      orderSummaryItems.appendChild(itemDiv);
+      orderTotal += parseFloat(item.price.replace('₹', '').replace('/kg', '').replace('/stick', '').replace('/stem', '').replace('/bunch', ''));
+    });
+
+    document.getElementById("orderTotal").innerText = `Total: ₹${orderTotal.toFixed(2)}`;
+
+    // Pass cart details to hidden form fields
+    document.getElementById("orderDetails").value = JSON.stringify(cart);
+    document.getElementById("orderTotalValue").value = orderTotal.toFixed(2);
+  </script>
+</body>
+</html>

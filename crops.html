@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Horticultural Crops</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #2E7D32;
+            --primary-light: #81C784;
+            --primary-dark: #1B5E20;
+            --secondary: #FFA000;
+            --light: #F5F5F5;
+            --dark: #212121;
+            --text: #424242;
+            --white: #FFFFFF;
+            --shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--light);
+            color: var(--text);
+            line-height: 1.6;
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: var(--white);
+            text-align: center;
+            padding: 3rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        header::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path fill="rgba(255,255,255,0.05)" d="M0,0 L100,0 L100,100 L0,100 Z"></path></svg>');
+            background-size: cover;
+            opacity: 0.3;
+        }
+        
+        header h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            position: relative;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        .category-container {
+            display: flex;
+            flex-direction: column;
+            gap: 3rem;
+        }
+        
+        .category {
+            background-color: var(--white);
+            border-radius: 16px;
+            padding: 2.5rem;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+        
+        .category:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+        }
+        
+        .category h2 {
+            font-family: 'Playfair Display', serif;
+            text-align: center;
+            color: var(--primary-dark);
+            font-size: 2.2rem;
+            margin-bottom: 2rem;
+            position: relative;
+            padding-bottom: 1rem;
+        }
+        
+        .category h2::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            border-radius: 3px;
+        }
+        
+        .items {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 2rem;
+            justify-items: center;
+        }
+        
+        .item-box {
+            background-color: var(--white);
+            border-radius: 12px;
+            padding: 1.5rem;
+            text-align: center;
+            width: 100%;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .item-box::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--primary-light), var(--secondary));
+        }
+        
+        .item-box:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+        
+        .item-box img {
+            width: 120px;
+            height: 120px;
+            object-fit: cover;
+            border-radius: 50%;
+            margin-bottom: 1.5rem;
+            border: 5px solid var(--white);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: var(--transition);
+        }
+        
+        .item-box:hover img {
+            transform: scale(1.1);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+        
+        .item-name {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: var(--white);
+            padding: 0.6rem 1rem;
+            border-radius: 30px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: var(--transition);
+            display: inline-block;
+            min-width: 120px;
+        }
+        
+        .item-name:hover {
+            background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+            transform: scale(1.05);
+        }
+        
+        /* Category-specific colors */
+        .category:nth-child(1) .item-name { /* Fruits */
+            background: linear-gradient(135deg, #FF5252, #D32F2F);
+        }
+        .category:nth-child(1) .item-name:hover {
+            background: linear-gradient(135deg, #D32F2F, #B71C1C);
+        }
+        
+        .category:nth-child(2) .item-name { /* Vegetables */
+            background: linear-gradient(135deg, #4CAF50, #2E7D32);
+        }
+        .category:nth-child(2) .item-name:hover {
+            background: linear-gradient(135deg, #2E7D32, #1B5E20);
+        }
+        
+        .category:nth-child(3) .item-name { /* Flowers */
+            background: linear-gradient(135deg, #AB47BC, #8E24AA);
+        }
+        .category:nth-child(3) .item-name:hover {
+            background: linear-gradient(135deg, #8E24AA, #6A1B9A);
+        }
+        
+        .category:nth-child(4) .item-name { /* Spices */
+            background: linear-gradient(135deg, #FFA000, #FF8F00);
+        }
+        .category:nth-child(4) .item-name:hover {
+            background: linear-gradient(135deg, #FF8F00, #FF6F00);
+        }
+        
+        .category:nth-child(5) .item-name { /* Herbs */
+            background: linear-gradient(135deg, #7CB342, #689F38);
+        }
+        .category:nth-child(5) .item-name:hover {
+            background: linear-gradient(135deg, #689F38, #558B2F);
+        }
+        
+        .category:nth-child(6) .item-name { /* Nuts */
+            background: linear-gradient(135deg, #8D6E63, #6D4C41);
+        }
+        .category:nth-child(6) .item-name:hover {
+            background: linear-gradient(135deg, #6D4C41, #5D4037);
+        }
+        
+        .category:nth-child(7) .item-name { /* Medicinal */
+            background: linear-gradient(135deg, #26A69A, #00897B);
+        }
+        .category:nth-child(7) .item-name:hover {
+            background: linear-gradient(135deg, #00897B, #00796B);
+        }
+        
+        /* Responsive design */
+        @media (max-width: 1024px) {
+            .items {
+                grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            }
+        }
+        
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2.8rem;
+            }
+            
+            .category h2 {
+                font-size: 1.8rem;
+            }
+            
+            .items {
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+                gap: 1.5rem;
+            }
+            
+            .item-box img {
+                width: 100px;
+                height: 100px;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            header h1 {
+                font-size: 2.2rem;
+            }
+            
+            .container {
+                padding: 1.5rem;
+            }
+            
+            .category {
+                padding: 1.5rem;
+            }
+            
+            .items {
+                grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+                gap: 1rem;
+            }
+            
+            .item-box img {
+                width: 80px;
+                height: 80px;
+            }
+            
+            .item-name {
+                padding: 0.5rem;
+                min-width: 100px;
+                font-size: 0.9rem;
+            }
+        }
+        .back-button {
+  display: inline-block;
+  background: linear-gradient(135deg, #56ccf2, #2f80ed);
+  color: white;
+  text-decoration: none;
+  padding: 10px 20px;
+  font-family: 'Poppins', sans-serif;
+  font-size: 16px;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.back-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 14px rgba(0,0,0,0.2);
+}
+
+
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Horticultural Crops</h1>
+    </header>
+    <a href="pratice.html" class="back-button">← Back</a>
+
+
+    <div class="container">
+        <div class="category-container">
+            <!-- Fruits Section -->
+            <div class="category">
+                <h2>Fruits</h2>
+                <div class="items">
+                    <div class="item-box">
+                        <img src="apple.jpg" alt="Apple">
+                        <div class="item-name">Apple</div>
+                    </div>
+                    <div class="item-box">
+                        <img src="banana.jpg" alt="Banana">
+                        <div class="item-name">Banana</div>
+                    </div>
+                    <div class="item-box">
+                        <img src="mango.png" alt="Mango">
+                        <div class="item-name">Mango</div>
+                    </div>
+                    <div class="item-box">
+                        <img src="orange.webp" alt="Orange">
+                        <div class="item-name">Orange</div>
+                    </div>
+                    <div class="item-box">
+                        <img src="graps.jpeg" alt="Grapes">
+                        <div class="item-name">Grapes</div>
+                    </div>
+                    <div class="item-box">
+                        <img src="strawberry.jpeg" alt="Strawberry">
+                        <div class="item-name">Strawberry</div>
+                    </div>
+                    <div class="item-box">
+                        <img src="pineapple.jpeg" alt="Pineapple">
+                        <div class="item-name">Pineapple</div>
+                    </div>
+                    <div class="item-box">
+                        <img src="watermelon.jpeg" alt="Watermelon">
+                        <div class="item-name">Watermelon</div>
+                    </div>
+                    <div class="item-box">
+                        <img src="pear.jpeg" alt="Pear">
+                        <div class="item-name">Pear</div>
+                    </div>
+                    <div class="item-box">
+                        <img src="peach.jpeg" alt="Peach">
+                        <div class="item-name">Peach</div>
+                    </div>
+                    <div class="item-box">
+                        <img src="kiwi.jpeg" alt="Kiwi">
+                        <div class="item-name">Kiwi</div>
+                    </div>
+                    <div class="item-box">
+                        <img src="prommogranate.jpeg" alt="Pomegranate">
+                        <div class="item-name">Pomegranate</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Vegetables Section -->
+            <div class="category">
+                <h2>Vegetables</h2>
+                <div class="items">
+                    <div class="item-box">
+                        <img src="tomato.jpg" alt="Tomato">
+                        <div class="item-name">Tomato</div>
+                    </div>
+                    <div class="item-box">
+                        <img src="carrot.png" alt="Carrot">
+                        <div class="item-name">Carrot</div>
+                    </div>
+                    <div class="item-box">
+                        <img src="spinach.webp" alt="Spinach">
+                        <div class="item-name">Spinach</div>
+                    </div>
+                    <div class="item-box">
+                        <img src="onion.webp" alt="Onion">
+                        <div class="item-name">Onion</div>
+                    </div>
+                    <div class="item-box">
+                        <img src="potato.jpg" alt="Potato">
+                        <div class="item-name">Potato</div>
+                    </div>
+                    <div class="item-box">
+                        <img src="broccoi.jpeg" alt="Broccoli">
+                        <div class="item-name">Broccoli</div>
+                    </div>
+                    <div class="item-box">
+                        <img src="califlower.jpeg" alt="Cauliflower">
+                        <div class="item-name">Cauliflower</div>
+                    </div>
+                    <div class="item-box">
+                        <img src="cabbage.jpeg" alt="Cabbage">
+                        <div class="item-name">Cabbage</div>
+                    </div>
+                    <div class="item-box">
+                        <img src="bell pepper.jpeg" alt="Bell Pepper">
+                        <div class="item-name">Bell Pepper</div>
+                    </div>
+                    <div class="item-box">
+                        <img src="egg plant.jpeg" alt="Eggplant">
+                        <div class="item-name">Eggplant</div>
+                    </div>
+                    <div class="item-box">
+                        <img src="cucumber.jpeg" alt="Cucumber">
+                        <div class="item-name">Cucumber</div>
+                    </div>
+                    <div class="item-box">
+                        <img src="zucchini.jpeg" alt="Zucchini">
+                        <div class="item-name">Zucchini</div>
+                    </div>
+                    <div class="item-box">
+                        <img src="pumpkin.jpeg" alt="Pumpkin">
+                        <div class="item-name">Pumpkin</div>
+                    </div>
+                    <div class="item-box">
+                        <img src="radish.jpeg" alt="Radish">
+                        <div class="item-name">Radish</div>
+                    </div>
+                    <div class="item-box">
+                        <img src="beetroot.jpeg" alt="Beetroot">
+                        <div class="item-name">Beetroot</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Flowers Section -->
+            <div class="category">
+                <h2>Flowers</h2>
+                <div class="items">
+                    <div class="item-box">
+                        <img src="rose.jpeg" alt="Rose">
+                        <div class="item-name">Rose</div>
+                    </div>
+                    <div class="item-box">
+                        <img src="tulips.jpeg" alt="Tulip">
+                        <div class="item-name">Tulip</div>
+                    </div>
+                    <div class="item-box">
+                        <img src="sunflower.jpeg" alt="Sunflower">
+                        <div class="item-name">Sunflower</div>
+                    </div>
+                    <div class="item-box">
+                        <img src="lily.jpeg" alt="Lily">
+                        <div class="item-name">Lily</div>
+                    </div>
+                    <div class="item-box">
+                        <img src="orchid.jpeg" alt="Orchid">
+                        <div class="item-name">Orchid</div>
+                    </div>
+                    <div class="item-box">
+                        <img src="daisy.jpeg" alt="Daisy">
+                        <div class="item-name">Daisy</div>
+                    </div>
+                    <div class="item-box">
+                        <img src="marigold.jpeg" alt="Marigold">
+                        <div class="item-name">Marigold</div>
+                    </div>
+                    <div class="item-box">
+                        <img src="lavender.jpeg" alt="Lavender">
+                        <div class="item-name">Lavender</div>
+                    </div>
+                    <div class="item-box">
+                        <img src="hibiscus.jpeg" alt="Hibiscus">
+                        <div class="item-name">Hibiscus</div>
+                    </div>
+                    <div class="item-box">
+                        <img src="dahila.jpeg" alt="Dahlia">
+                        <div class="item-name">Dahlia</div>
+                    </div>
+                    <div class="item-box">
+                        <img src="penoy.jpeg" alt="Peony">
+                        <div class="item-name">Peony</div>
+                    </div>
+                    <div class="item-box">
+                        <img src="carnation.jpeg" alt="Carnation">
+                        <div class="item-name">Carnation</div>
+                    </div>
+                    <div class="item-box">
+                        <img src="jasmin.jpeg" alt="Jasmine">
+                        <div class="item-name">Jasmine</div>
+                    </div>
+                    <div class="item-box">
+                        <img src="lotus.jpeg" alt="Lotus">
+                        <div class="item-name">Lotus</div>
+                    </div>
+                    <div class="item-box">
+                        <img src="chrysanthemum.jpeg" alt="Chrysanthemum">
+                        <div class="item-name">Chrysanthemum</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Spices Section -->
+            <div class="category">
+                <h2>Spices</h2>
+                <div class="items">
+                    <div class="item-box">
+                        <img src="pepper.jpeg" alt="Pepper">
+                        <div class="item-name">Pepper</div>
+                    </div>
+                    <div class="item-box">
+                        <img src="cardamom.jpeg" alt="Cardamom">
+                        <div class="item-name">Cardamom</div>
+                    </div>
+                    <div class="item-box">
+                        <img src="cinnamon.jpeg" alt="Cinnamon">
+                        <div class="item-name">Cinnamon</div>
+                    </div>
+                    <div class="item-box">
+                        <img src="cloves.jpeg" alt="Cloves">
+                        <div class="item-name">Cloves</div>
+                    </div>
+                    <div class="item-box">
+                        <img src="turmeric.jpeg" alt="Turmeric">
+                        <div class="item-name">Turmeric</div>
+                    </div>
+                    <div class="item-box">
+                        <img src="cumin.jpeg" alt="Cumin">
+                        <div class="item-name">Cumin</div>
+                    </div>
+                    <div class="item-box">
+                        <img src="coriander.jpeg" alt="Coriander">
+                        <div class="item-name">Coriander</div>
+                    </div>
+                    <div class="item-box">
+                        <img src="mustad.jpeg" alt="Mustard">
+                        <div class="item-name">Mustard</div>
+                    </div>
+                    <div class="item-box">
+                        <img src="nutmeg.jpeg" alt="Nutmeg">
+                        <div class="item-name">Nutmeg</div>
+                    </div>
+                    <div class="item-box">
+                        <img src="saffron.jpeg" alt="Saffron">
+                        <div class="item-name">Saffron</div>
+                    </div>
+                    <div class="item-box">
+                        <img src="fennel.jpeg" alt="Fennel">
+                        <div class="item-name">Fennel</div>
+                    </div>
+                    <div class="item-box">
+                        <img src="star.jpeg" alt="Star Anise">
+                        <div class="item-name">Star Anise</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Herbs Section -->
+            <div class="category">
+                <h2>Herbs</h2>
+                <div class="items">
+                    <div class="item-box">
+                        <img src="basil.jpeg" alt="Basil">
+                        <div class="item-name">Basil</div>
+                    </div>
+                    <div class="item-box">
+                        <img src="mint.jpeg" alt="Mint">
+                        <div class="item-name">Mint</div>
+                    </div>
+                    <div class="item-box">
+                        <img src="rose marry.jpeg" alt="Rosemary">
+                        <div class="item-name">Rosemary</div>
+                    </div>
+                    <div class="item-box">
+                        <img src="thyme.jpeg" alt="Thyme">
+                        <div class="item-name">Thyme</div>
+                    </div>
+                    <div class="item-box">
+                        <img src="sage.jpeg" alt="Sage">
+                        <div class="item-name">Sage</div>
+                    </div>
+                    <div class="item-box">
+                        <img src="parsely.jpeg" alt="Parsley">
+                        <div class="item-name">Parsley</div>
+                    </div>
+                    <div class="item-box">
+                        <img src="oregano.jpeg" alt="Oregano">
+                        <div class="item-name">Oregano</div>
+                    </div>
+                    <div class="item-box">
+                        <img src="dill.jpeg" alt="Dill">
+                        <div class="item-name">Dill</div>
+                    </div>
+                    <div class="item-box">
+                        <img src="chives.jpeg" alt="Chives">
+                        <div class="item-name">Chives</div>
+                    </div>
+                    <div class="item-box">
+                        <img src="lemon grass.jpeg" alt="Lemongrass">
+                        <div class="item-name">Lemongrass</div>
+                    </div>
+                    <div class="item-box">
+                        <img src="tarragon.jpeg" alt="Tarragon">
+                        <div class="item-name">Tarragon</div>
+                    </div>
+                    <div class="item-box">
+                        <img src="bay-leaf.jpeg" alt="Bay Leaf">
+                        <div class="item-name">Bay Leaf</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Nuts Section -->
+            <div class="category">
+                <h2>Nuts</h2>
+                <div class="items">
+                    <div class="item-box">
+                        <img src="almond.jpeg" alt="Almond">
+                        <div class="item-name">Almond</div>
+                    </div>
+                    <div class="item-box">
+                        <img src="walnut.jpeg" alt="Walnut">
+                        <div class="item-name">Walnut</div>
+                    </div>
+                    <div class="item-box">
+                        <img src="cashew.jpeg" alt="Cashew">
+                        <div class="item-name">Cashew</div>
+                    </div>
+                    <div class="item-box">
+                        <img src="peanut.jpeg" alt="Peanut">
+                        <div class="item-name">Peanut</div>
+                    </div>
+                    <div class="item-box">
+                        <img src="pista.jpeg" alt="Pistachio">
+                        <div class="item-name">Pistachio</div>
+                    </div>
+                    <div class="item-box">
+                        <img src="hazelnut.jpeg" alt="Hazelnut">
+                        <div class="item-name">Hazelnut</div>
+                    </div>
+                    <div class="item-box">
+                        <img src="chestnut.jpeg" alt="Chestnut">
+                        <div class="item-name">Chestnut</div>
+                    </div>
+                    <div class="item-box">
+                        <img src="pecan.jpeg" alt="Pecan">
+                        <div class="item-name">Pecan</div>
+                    </div>
+                    <div class="item-box">
+                        <img src="macadamia.jpeg" alt="Macadamia">
+                        <div class="item-name">Macadamia</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Medicinal Plants Section -->
+            <div class="category">
+                <h2>Medicinal Plants</h2>
+                <div class="items">
+                    <div class="item-box">
+                        <img src="aloe vera.jpeg" alt="Aloe Vera">
+                        <div class="item-name">Aloe Vera</div>
+                    </div>
+                    <div class="item-box">
+                        <img src="ginseng.jpeg" alt="Ginseng">
+                        <div class="item-name">Ginseng</div>
+                    </div>
+                    <div class="item-box">
+                        <img src="echinacea.jpeg" alt="Echinacea">
+                        <div class="item-name">Echinacea</div>
+                    </div>
+                    <div class="item-box">
+                        <img src="turmeric-plant.jpeg" alt="Turmeric">
+                        <div class="item-name">Turmeric</div>
+                    </div>
+                    <div class="item-box">
+                        <img src="ginger.jpeg" alt="Ginger">
+                        <div class="item-name">Ginger</div>
+                    </div>
+                    <div class="item-box">
+                        <img src="chamomile.jpeg" alt="Chamomile">
+                        <div class="item-name">Chamomile</div>
+                    </div>
+                    <div class="item-box">
+                        <img src="neem.jpeg" alt="Neem">
+                        <div class="item-name">Neem</div>
+                    </div>
+                    <div class="item-box">
+                        <img src="hosy basil.jpeg" alt="Holy Basil">
+                        <div class="item-name">Holy Basil</div>
+                    </div>
+                    <div class="item-box">
+                        <img src="ashwagandha.jpeg" alt="Ashwagandha">
+                        <div class="item-name">Ashwagandha</div>
+                    </div>
+                </div>
+            </div>
+        </div> 
+    </div>
+</body>
+</html>

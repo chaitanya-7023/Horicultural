@@ -1,0 +1,30 @@
+body {
+    font-family: sans-serif;
+    background: #f0fff0;
+    padding: 20px;
+  }
+  header, footer {
+    text-align: center;
+    background-color: #d0f0c0;
+    padding: 15px;
+    border-radius: 10px;
+  }
+  .promo {
+    background: #fffbe0;
+    padding: 20px;
+    margin: 20px 0;
+    border-left: 5px solid #4caf50;
+  }
+  #crops {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+  }
+  .crop {
+    background: white;
+    padding: 15px;
+    border-radius: 10px;
+    width: 200px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  }
+  
